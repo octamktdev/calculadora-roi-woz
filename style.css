@@ -1,0 +1,206 @@
+body { font-family: Arial, sans-serif; margin: 20px; }
+
+.main-wrapper{
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    padding: 5%;
+}
+
+#form-section .form-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+#results-section{
+    display: flex;
+    flex: row;
+    gap: 1rem;
+    align-self: center;
+    padding: 2rem;
+    
+    div{
+        min-width: 12rem;
+        height: auto;
+        border-radius: .65rem;
+        background-color: #ECF4FD;
+        padding: 1rem;
+    }
+}
+
+
+.button{
+    padding: 1rem 2rem;
+    background-color: #4e73df;
+    border-radius: .5rem;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+
+    cursor: pointer;
+}
+
+/* Estilos para o comparativo */
+#result-comparativo {
+    margin-top: 2rem;
+}
+
+.comparativo-item {
+    margin-bottom: 1.5rem;
+}
+
+.barra-comparativo {
+    display: flex;
+    height: 30px;
+    background: #f0f0f0;
+    margin: 0.5rem 0;
+    position: relative;
+}
+
+.barra-usuario {
+    background-color: #4e73df;
+    transition: width 0.5s ease;
+    z-index: 2;
+}
+
+.barra-setor {
+    background-color: #1cc88a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 0.5s ease 0.3s;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.valores-comparativo {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.valor-usuario::before {
+    content: "Você: ";
+    font-weight: bold;
+    color: #4e73df;
+}
+
+.valor-setor::before {
+    content: "Setor: ";
+    font-weight: bold;
+    color: #1cc88a;
+}
+/* Estilos do Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    overflow-y: scroll;
+  }
+  
+  .close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-modal:hover {
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  #conteudo-exclusivo {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+  }
+  
+  .acoes {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .acoes button {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  #download-pdf {
+    background-color: #4e73df;
+    color: white;
+  }
+  
+  #agendar-consulta {
+    background-color: #1cc88a;
+    color: white;
+  }
+
+  .chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chart-container h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#result-comparativo{
+    .chart-container{
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+    }
+}
