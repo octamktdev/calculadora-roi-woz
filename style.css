@@ -16,6 +16,12 @@ body { font-family: Arial, sans-serif; margin: 20px; }
     width: 100%;
 }
 
+.content-wrapper input{
+    padding: .5rem;
+    border-radius: .25rem;
+    margin-top: .5rem;
+}
+
 #results-section{
     display: flex;
     flex: row;
@@ -113,10 +119,11 @@ body { font-family: Arial, sans-serif; margin: 20px; }
     margin: 2% auto;
     padding: 2rem;
     border-radius: 8px;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 700px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    overflow-y: scroll;
+    overflow: scroll;
+    height: 700px;
   }
   
   .close-modal {
