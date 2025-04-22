@@ -13,13 +13,13 @@
 <body>
     <div class="main-wrapper">
         <div id="form-section">
-            <div id="form-container" class="column">
-                <form id="roiForm">
-                    <div class="form-wrapper">
+            <form id="roiForm">
+                <div class="form-fields">
+                    <div class="form-line">
                         <div class="content-wrapper">
                             <label for="segmento">Setor da empresa</label>
                             <select id="segmento" name="segmento" required>
-                                <option value="" disabled selected>Selecione o setor</option>
+                                <option value="" selected>Selecione o setor</option>
                                 <option value="varejo-ecommerce">Varejo e e-commerce</option>
                                 <option value="educacao">Educação</option>
                                 <option value="saude">Saúde</option>
@@ -34,22 +34,20 @@
                                 <option value="outros">Outros</option>
                             </select>
                         </div>
-                       
+
                         <div class="content-wrapper">
                             <label for="atendentes">Número de atendentes na operação:</label>
                             <input type="number" id="atendentes" required><br>
                         </div>
+
                         <div class="content-wrapper">
                             <label for="atendimentos">Média mensal de atendimentos:</label>
                             <input type="number" id="atendimentos" required><br>
                         </div>
 
-                        <!--
-                        <div class="content-wrapper">
-                            <label for="custo">Custo médio por atendente (R$):</label>
-                            <input type="number" id="custo" required><br>
-                        </div>-->
-                
+                    </div>
+
+                    <div class="form-line">
                         <div class="content-wrapper">
                             <label for="crescimento-mensal-empresa">Crescimento mensal da empresa?</label>
                             <input type="number" id="crescimento-mensal-empresa">
@@ -59,52 +57,102 @@
                             <label for="porcentagem-de-duvidas-repetidas">Porcentagem de dúvidas repetidas?</label>
                             <input type="number" id="porcentagem-de-duvidas-repetidas">
                         </div>
-                    
-                    <button class="button" type="submit">Calcular</button>
                     </div>
-                </form>
-            </div>
+
+
+                    <button class="button" type="submit">Calcular</button>
+                </div>
+            </form>
         </div>
 
         <div id="results-section">
             <div id="result-operacao" class="column">
-                <h2>Operação atual</h2>
-                <div><span id="result-custo-geral-analistas" class="result"></span></div>
-                <div id="result-custo-atendimento" class="result"></div>
-                <div id="result-atendimento-analista" class="result"></div>
+                <h3>Operação atual</h3>
+                <div class="result-item">
+                    <span>Custo geral de com analistas: R$</span>
+                    <span id="result-custo-geral-analistas" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Valor do atendimento atualmente: R$</span>
+                    <span id="result-custo-atendimento" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Capacidade atual:</span>
+                    <span id="result-atendimento-analista" class="result"></span>
+                </div>
             </div>
 
             <div id="result-woz" class="column">
-                <h2>Operação com WOZ</h2>
-                <div id="analistas-necessarios-com-woz" class="result"></div>
-                <div id="custo-utilizado" class="result"></div>
-                <div id="valor-atendimento-com-woz" class="result"></div>
-                <div id="economia-com-analistas" class="result"></div>
-                <div id="result-estimativa-atendimento-com-ia" class="result"></div>
-                <div id="result-investimentos-resolucoes-woz" class="result"></div>
-                <div id="custo-resolucoes-analistas-mais-woz" class="result"></div>
-                <div id="economia-total" class="result"></div>    
+                <h3>Operação com WOZ</h3>
+                <div class="result-item">
+                    <span>Quantos atendimentos esperamos resolver diretamente com a IA:</span>
+                    <span id="analistas-necessarios-com-woz" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Custo utilizado (média do setor): </span>
+                    <span id="custo-utilizado" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Valor do atendimento com WOZ:</span>
+                    <span id="valor-atendimento-com-woz" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Economia com analistas R$: </span>
+                    <span id="economia-com-analistas" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Quantos atendimentos esperamos resolver diretamente com a IA:</span>
+                    <span id="result-estimativa-atendimento-com-ia" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Investimento em Resoluções - Woz:</span>
+                    <span id="result-investimentos-resolucoes-woz" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Resoluções Woz + Analistas:</span>
+                    <span id="custo-resolucoes-analistas-mais-woz" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Economia total com WOZ: </span>
+                    <span id="economia-total" class="result"></span>
+                </div>
             </div>
 
             <div id="result-benchmark" class="column">
-                <h2>Visão de mercado</h2>
-                <div id="output-custo-atendimento" class="result"></div>
-                <div id="output-custo-mensal" class="result"></div>
-                <div id="output-atendentes" class="result"></div>
-                <div id="output-automacao" class="result"></div>
-                <div id="output-tempo-resposta" class="result"></div>
-            </div>
-
-            <div id="comparativo-setor">
-                <h2>Comparativo com o seu setor</h2>
-                <div>
-                    <button class="button" id="obter-resultados">Obter resultados</button>
+                <div class="div-overlay">
+                    <div class="overlay-content">
+                        <img src="img/eye-off.svg" alt="">
+                        <span>Compare sua operação com a média do seu mercado.</span>
+                        <button id="obter-resultados">Acessar dados</button>
+                    </div>
+                </div>
+                <h3>Visão de mercado</h3>
+                <div class="result-item">
+                    <span>Custo por atendimento: </span>
+                    <span id="output-custo-atendimento" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Custo médio mensal no setor:</span>
+                    <span id="output-custo-mensal" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Qtde média de atendentes:</span>
+                    <span id="output-atendentes" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Nível de automação no setor (estimado):</span>
+                    <span id="output-automacao" class="result"></span>
+                </div>
+                <div class="result-item">
+                    <span>Tempo médio de resposta no setor:</span>
+                    <span id="output-tempo-resposta" class="result"></span>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
-   <div id="result-comparativo" class="column">
+    <div id="result-comparativo" class="column">
         <h2>Comparativo com o Setor</h2>
         <div class="chart-container">
             <canvas id="custoAtendimentoChart"></canvas>
@@ -119,48 +167,58 @@
 
     <!-- Modal de Material Rico -->
     <div id="material-rico-modal" class="modal">
-        <div class="modal-content">
         <span class="close-modal">&times;</span>
-        <h2>Veja os resultados da sua operação em comparação ao setor</h2>
-        <p>Preencha seus dados para acessar os dados completos do seu setor:</p>
-        
-        <form id="contatoForm">
-            <div class="form-group">
-            <label for="nome">Nome Completo:</label>
-            <input type="text" id="nome" required>
-            </div>
-            <div class="form-group">
-            <label for="email">E-mail Corporativo:</label>
-            <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-            <label for="empresa">Empresa:</label>
-            <input type="text" id="empresa" required>
-            </div>
-            <button class="button" type="submit">Acessar comparativo</button>
-        </form>
-        
-        <div id="conteudo-exclusivo" style="display:none;">
-            <h3>Benchmarks Completos do Setor</h3>
-            <div id="detalhes-benchmark">
-                <div id="result-comparativo" class="column">
-                    <h2>Comparativo com o Setor</h2>
-                    <div class="chart-container">
-                        <canvas id="custoAtendimentoChart"></canvas>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="custoMensalChart"></canvas>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="atendentesChart"></canvas>
-                    </div>
+
+        <div class="modal-content">
+            <div class="modal-content-1">
+                <div class="modal-cta">
+                    <h2>Quer saber <span class="text-color-primary-blue">como sua operação se compara</span> com o
+                        mercado?</h2>
+                    <p><b>Quer saber como sua operação se compara com o mercado?</b> Desbloqueie a visão completa com
+                        dados exclusivos do setor, benchmark de performance e insights valiosos. Preencha o formulário e
+                        receba tudo por e-mail! 👉</p>
+                </div>
+                <div class="line-divider"></div>
+                <div class="modal-form">
+                    <form id="contatoForm">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo:</label>
+                            <input type="text" id="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail Corporativo:</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresa">Empresa:</label>
+                            <input type="text" id="empresa" required>
+                        </div>
+                        <button class="button" type="submit">Acessar comparativo</button>
+                    </form>
                 </div>
             </div>
-            <div class="acoes">
-            <button id="download-pdf">Baixar versão PDF</button>
-            <button id="agendar-consulta">Agendar Bate-papo</button>
+
+            <div id="conteudo-exclusivo" class="display: none;">
+                <h3>Benchmarks Completos do Setor</h3>
+                <div id="detalhes-benchmark">
+                    <div id="result-comparativo" class="column">
+                        <h2>Comparativo com o Setor</h2>
+                        <div class="chart-container">
+                            <canvas id="custoAtendimentoChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="custoMensalChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="atendentesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="acoes">
+                    <button id="download-pdf">Baixar versão PDF</button>
+                    <button id="agendar-consulta">Agendar Bate-papo</button>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 

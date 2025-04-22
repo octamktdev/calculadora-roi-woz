@@ -400,16 +400,16 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const economiaGeral = calculoEconomiaGeral(valorAtendimentoComWOZ, custoPorAtendimento);
 
         // Atualizar os blocos de resultado
-        document.getElementById("result-custo-geral-analistas").textContent = `Custo geral de com analistas: R$ ${formatarMoeda(custoGeralAnalistas)}`;
-        document.getElementById("result-custo-atendimento").textContent = `Valor do atendimento atualmente: R$ ${formatarMoeda(custoPorAtendimento)}`;
-        document.getElementById("result-atendimento-analista").textContent = `Capacidade atual: ${capacidadeAtual.toFixed(2)} atendimentos/analista`;
-        document.getElementById("result-estimativa-atendimento-com-ia").textContent = `Quantos atendimentos esperamos resolver diretamente com a IA: ${estimativaAtendimentosComIA}`;
-        document.getElementById("result-investimentos-resolucoes-woz").textContent = `Investimento em Resoluções - Woz: R$ ${formatarMoeda(investimentoEmResolucoesWoz)}`
-        document.getElementById("analistas-necessarios-com-woz").textContent = `Analistas necessários com WOZ: ${analistasComWoz}`;
-        document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `Resoluções Woz + Analistas: R$ ${formatarMoeda(resolucoesWozMaisAnalistas)}`
-        document.getElementById("valor-atendimento-com-woz").textContent = `Valor do atendimento com WOZ: R$ ${formatarMoeda(valorAtendimentoComWOZ)}`;
-        document.getElementById("economia-com-analistas").textContent = `Economia com analistas R$ ${formatarMoeda(resultEconomiaComAnalistas)}`;
-        document.getElementById("economia-total").textContent = `Economia total com WOZ ${economiaGeral.toFixed(2)}%`;
+        document.getElementById("result-custo-geral-analistas").textContent = `${formatarMoeda(custoGeralAnalistas)}`;
+        document.getElementById("result-custo-atendimento").textContent = `${formatarMoeda(custoPorAtendimento)}`;
+        document.getElementById("result-atendimento-analista").textContent = ` ${capacidadeAtual.toFixed(2)} atendimentos/analista`;
+        document.getElementById("result-estimativa-atendimento-com-ia").textContent = `${estimativaAtendimentosComIA}`;
+        document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`
+        document.getElementById("analistas-necessarios-com-woz").textContent = `${analistasComWoz}`;
+        document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`
+        document.getElementById("valor-atendimento-com-woz").textContent = `${formatarMoeda(valorAtendimentoComWOZ)}`;
+        document.getElementById("economia-com-analistas").textContent = `${formatarMoeda(resultEconomiaComAnalistas)}`;
+        document.getElementById("economia-total").textContent = `${economiaGeral.toFixed(2)}%`;
     
          // Preparar dados para comparação
          const dadosUsuario = {
@@ -422,11 +422,11 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
         if (dados && dadosUsuario) {
             atualizarComparativo(dados, dadosUsuario)
-            document.getElementById("output-custo-atendimento").textContent = `Custo por atendimento: R$ ${dados.custoPorAtendimento.toFixed(2)}`;
-            document.getElementById("output-custo-mensal").textContent = `Custo média mensal no setor: R$ ${formatarMoeda(dados.custoMensal)}`;
-            document.getElementById("output-atendentes").textContent = `Qtde média de atendentes: ${dados.atendentesMedios} pessoas`;
-            document.getElementById("output-automacao").textContent = `Nível de automação no setor (estimado): ${dados.automacao}`;
-            document.getElementById("output-tempo-resposta").textContent = `Tempo médio de resposta no setor: ${dados.tempoResposta}`;
+            document.getElementById("output-custo-atendimento").textContent = `R$ ${dados.custoPorAtendimento.toFixed(2)}`;
+            document.getElementById("output-custo-mensal").textContent = `R$ ${formatarMoeda(dados.custoMensal)}`;
+            document.getElementById("output-atendentes").textContent = `${dados.atendentesMedios} pessoas`;
+            document.getElementById("output-automacao").textContent = `${dados.automacao}`;
+            document.getElementById("output-tempo-resposta").textContent = `${dados.tempoResposta}`;
 
             document.getElementById("resultados").style.display = "block";
         }
