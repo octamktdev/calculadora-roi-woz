@@ -24,6 +24,9 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     width: 100%;
 }
 
+#form-section{
+  max-width: 1080px;
+}
 
 #roiForm .form-fields{
     display: flex;
@@ -40,6 +43,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
             display: flex;
             flex-direction: column;
             gap: .25rem;
+            width: 100%;
 
             select, input{
                 height: 2rem;
@@ -79,9 +83,9 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
 #results-section{
     display: flex;
     flex: row;
-    gap: 1rem;
+    gap: 2rem;
     align-self: center;
-    padding: 5%;
+    padding: 5% 1rem;
     
     .column{
         width: 20rem;
@@ -185,7 +189,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
   background: linear-gradient(310deg, #1366C9 12.46%, #5D28B8 33.83%, #7B15C1 66.23%, #A615A1 92.65%);
   }
 
-.modal {
+  .modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -194,14 +198,51 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.7);
-    padding: 1rem 2rem;
-  }
+    overflow: auto;
+}
   
-  .modal-content{
-    display: flex;
-    flex-direction: column;
-  }
+.modal-content {
+  background: linear-gradient(180deg, #ECF4FD 0%, #FFF 52.4%);
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: 1.26rem;
+  border: 0.84px solid #1366C9;
+  width: 80%;
+  max-width: 1080px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  position: relative;
+}
 
+.modal-section {
+  width: 100%;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+#modal-form-section {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+#modal-results-section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chart-container {
+  margin: 1rem 0;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/*
   .modal-content-1 {
     display: flex;
     flex-direction: row;
@@ -233,42 +274,39 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
         font-size: 2.5rem;
         font-style: normal;
         font-weight: 800;
-        line-height: 115%; /* 2.875rem */
+        line-height: 115%; 
         letter-spacing: -0.05rem;
       }
       p{
         color: #4F5464;
         font-size: 0.9375rem;
         font-style: normal;
-        line-height: 150%; /* 1.40625rem */
+        line-height: 150%; 
       }
     }
-
-    .modal-form{
-      padding: 1rem 2rem;
-    }
-
-    .button{
-      display: inline-flex;
-      height: 3.0625rem;
-      padding: 0.52625rem 1.63813rem;
-      justify-content: center;
-      align-items: center;
-      gap: 0.52625rem;
-      flex-shrink: 0;
-
-      border-radius: 0.625rem;
-      background: #1366C9;
-      color: var(--white-white-500, #FFF);
-      font-family: var(--poppins);
-      font-size: 1rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 150%; /* 1.5rem */
-      border: none;
-    }
-  }
+   
+  }*/
   
+
+  .button{
+    display: inline-flex;
+    height: 3.0625rem;
+    padding: 0.52625rem 1.63813rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.52625rem;
+    flex-shrink: 0;
+
+    border-radius: 0.625rem;
+    background: #1366C9;
+    color: var(--white-white-500, #FFF);
+    font-family: var(--poppins);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 1.5rem */
+    border: none;
+  }
   .close-modal {
     color: #aaa;
     float: right;

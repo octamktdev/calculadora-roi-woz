@@ -144,34 +144,79 @@ document.getElementById("obter-resultados").addEventListener("click", function()
     }
   });
   
-  // Processar formulário de contato
-  contatoForm.addEventListener("submit", function(e) {
+ // Processar formulário de contato
+contatoForm.addEventListener("submit", function(e) {
     e.preventDefault();
     
     const nome = document.getElementById("nome").value;
     const email = document.getElementById("email").value;
     const empresa = document.getElementById("empresa").value;
-        
-    // Simular envio (substitua por sua lógica real)
+    
+    // Simular envio
     console.log("Dados capturados:", { nome, email, empresa });
     
     // Esconder formulário e mostrar conteúdo
-    contatoForm.style.display = "none";
+    document.querySelector(".modal-form").style.display = "none";
     conteudoExclusivo.style.display = "block";
     
     // Preencher os dados do benchmark
     const setorSelecionado = document.getElementById("segmento").value;
     const dados = benchmarkPorSetor[setorSelecionado];
     
+    // Atualizar texto
     document.getElementById("detalhes-benchmark").innerHTML = `
-      <p><strong>Setor:</strong> ${document.getElementById("segmento").options[document.getElementById("segmento").selectedIndex].text}</p>
-      <p><strong>Custo por Atendimento:</strong> ${formatarMoeda(dados.custoPorAtendimento)}</p>
-      <p><strong>Custo Mensal Médio:</strong> ${formatarMoeda(dados.custoMensal)}</p>
-      <p><strong>Atendentes Médios:</strong> ${dados.atendentesMedios}</p>
-      <p><strong>Nível de Automação:</strong> ${dados.automacao}</p>
-      <p><strong>Tempo Médio de Resposta:</strong> ${dados.tempoResposta}</p>
+        <p><strong>Setor:</strong> ${document.getElementById("segmento").options[document.getElementById("segmento").selectedIndex].text}</p>
+        <p><strong>Custo por Atendimento:</strong> ${formatarMoeda(dados.custoPorAtendimento)}</p>
+        <p><strong>Custo Mensal Médio:</strong> ${formatarMoeda(dados.custoMensal)}</p>
     `;
-  });
+    
+    // Preparar dados para os gráficos
+    const dadosUsuario = {
+        custoPorAtendimento: parseFloat(document.getElementById("result-custo-atendimento").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
+        custoMensal: parseFloat(document.getElementById("result-custo-geral-analistas").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
+        atendentesMedios: parseFloat(document.getElementById("atendentes").value)
+    };
+    
+    // Criar gráficos no modal (usando IDs diferentes)
+    criarGraficosModal(dados, dadosUsuario);
+});
+
+function criarGraficosModal(dadosSetor, dadosUsuario) {
+    const cores = ['#4e73df', '#1cc88a'];
+    const labels = ['Sua Operação', 'Média do Setor'];
+    
+    // Gráfico de Custo por Atendimento no Modal
+    new Chart(
+        document.getElementById('modalCustoAtendimentoChart'),
+        {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Custo por Atendimento (R$)',
+                    data: [dadosUsuario.custoPorAtendimento, dadosSetor.custoPorAtendimento],
+                    backgroundColor: cores
+                }]
+            },
+            options: getChartOptions('Custo por Atendimento')
+        }
+    );
+    
+    // Adicionar outros gráficos similares para modalCustoMensalChart e modalAtendentesChart
+}
+
+function getChartOptions(title) {
+    return {
+        responsive: true,
+        plugins: {
+            title: { display: true, text: title, font: { size: 16 } },
+            legend: { display: false }
+        },
+        scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Valor em R$' } }
+        }
+    };
+}
 
   setTimeout(() => {
     const dadosUsuario = {

@@ -69,11 +69,11 @@
             <div id="result-operacao" class="column">
                 <h3>Operação atual</h3>
                 <div class="result-item">
-                    <span>Custo geral de com analistas: R$</span>
+                    <span>Custo geral de com analistas:</span>
                     <span id="result-custo-geral-analistas" class="result"></span>
                 </div>
                 <div class="result-item">
-                    <span>Valor do atendimento atualmente: R$</span>
+                    <span>Valor do atendimento atualmente: </span>
                     <span id="result-custo-atendimento" class="result"></span>
                 </div>
                 <div class="result-item">
@@ -97,7 +97,7 @@
                     <span id="valor-atendimento-com-woz" class="result"></span>
                 </div>
                 <div class="result-item">
-                    <span>Economia com analistas R$: </span>
+                    <span>Economia com analistas: </span>
                     <span id="economia-com-analistas" class="result"></span>
                 </div>
                 <div class="result-item">
@@ -152,19 +152,6 @@
     </div>
     </div>
 
-    <div id="result-comparativo" class="column">
-        <h2>Comparativo com o Setor</h2>
-        <div class="chart-container">
-            <canvas id="custoAtendimentoChart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="custoMensalChart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="atendentesChart"></canvas>
-        </div>
-    </div>
-
     <!-- Modal de Material Rico -->
     <div id="material-rico-modal" class="modal">
         <span class="close-modal">&times;</span>
@@ -198,19 +185,19 @@
                 </div>
             </div>
 
-            <div id="conteudo-exclusivo" class="display: none;">
+            <div id="conteudo-exclusivo" style="display: none;">
                 <h3>Benchmarks Completos do Setor</h3>
                 <div id="detalhes-benchmark">
-                    <div id="result-comparativo" class="column">
+                    <div class="column">
                         <h2>Comparativo com o Setor</h2>
                         <div class="chart-container">
-                            <canvas id="custoAtendimentoChart"></canvas>
+                            <canvas id="modalCustoAtendimentoChart"></canvas>
                         </div>
                         <div class="chart-container">
-                            <canvas id="custoMensalChart"></canvas>
+                            <canvas id="modalCustoMensalChart"></canvas>
                         </div>
                         <div class="chart-container">
-                            <canvas id="atendentesChart"></canvas>
+                            <canvas id="modalAtendentesChart"></canvas>
                         </div>
                     </div>
                 </div>
