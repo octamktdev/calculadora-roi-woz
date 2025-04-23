@@ -423,15 +423,4 @@ document.getElementById("obter-resultados").addEventListener("click", function()
             }
         };
     }
-
-    function sendHeight() {
-        const height = document.body.scrollHeight;
-        window.parent.postMessage({ iframeHeight: height }, '*');
-      }
-    
-      window.addEventListener('load', sendHeight);
-      window.addEventListener('resize', sendHeight);
-      // Opcional: se conteúdo mudar dinamicamente
-      const observer = new MutationObserver(sendHeight);
-      observer.observe(document.body, { childList: true, subtree: true });
 });
