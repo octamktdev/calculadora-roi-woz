@@ -275,7 +275,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
             duvidasRepetidas: document.getElementById("porcentagem-de-duvidas-repetidas").value
           };
 
-          fetch("https://script.google.com/macros/s/AKfycbzX2dCeu6Z-0ll4QZALzccJnbiKxVJOGoAggmbzsvvnayErefVHhGflZTl7sG77jkPj/exec", {
+          fetch("https://script.google.com/macros/s/AKfycbwQoYaEdPqMQHT5h74WKywKqtEzR_ev_xwVsArTp9MCF3f2W7ehKXYlVQ3vA1r44Y5WzA/exec", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
