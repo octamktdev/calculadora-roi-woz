@@ -66,11 +66,6 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
         }
     }
 
-    .button-group{
-      padding-top: 1.5rem;
-
-    }
-
     button{
         display: flex;
         width: 11.375rem;
