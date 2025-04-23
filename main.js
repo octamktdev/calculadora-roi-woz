@@ -277,6 +277,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
           fetch("https://script.google.com/macros/s/AKfycbzX2dCeu6Z-0ll4QZALzccJnbiKxVJOGoAggmbzsvvnayErefVHhGflZTl7sG77jkPj/exec", {
             method: "POST",
+            mode: "no-cors", 
             headers: {
               "Content-Type": "application/json",
             },
