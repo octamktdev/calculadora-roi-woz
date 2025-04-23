@@ -14,106 +14,165 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("roiForm");
 
     const benchmarkPorSetor = {
-       "varejo-ecommerce": {
-        custoPorAtendimento: 2.8,  // Fonte: ABComm 2023
-        custoMensal: 12500,        // Média empresas R$ 5-50mi faturamento
-        atendentesMedios: 7,
-        eficiencia: 230,           // Atendimentos/analista/mês
-        automacao: "Média",
-        tempoResposta: "12 min",   // Fonte: RD Station
-        fontes: "ABComm 2023, RD Station 2022",
-        custoMensalPorAtendente: 4235.50, // Salário + encargos (CLT)
-        composicaoCusto: {
-            salarioBase: 2850.00,
-            encargos: 1385.50, // INSS, FGTS, etc.
-            beneficios: 800.00 // VR, VT, etc.
-        }
-    },
-        "educacao": {
-          custoPorAtendimento: 3.2,
-          custoMensal: 9500,
-          atendentesMedios: 6,
-          automacao: "Baixa",
-          tempoResposta: "20 min",
-          custoMensalPorAtendente: 3870.20,
-          composicaoCusto: {
-              salarioBase: 2600.00,
-              encargos: 1270.20,
-              beneficios: 700.00
-          }
-        },
-       "saude": {
-        custoPorAtendimento: 4.5,  // Fonte: McKinsey
-        custoMensal: 14200,
-        atendentesMedios: 9,
-        eficiencia: 180,
-        automacao: "Baixa",
-        tempoResposta: "22 min",   // Fonte: Conselho Nacional de Saúde
-        fontes: "McKinsey 2023, CNS 2022",
-        custoMensalPorAtendente: 5120.75,
-        composicaoCusto: {
-            salarioBase: 3500.00,
-            encargos: 1620.75,
-            beneficios: 1000.00
-        }
-    },
-        "tecnologia-software": {
-          custoPorAtendimento: 2.0,
-          custoMensal: 11000,
-          atendentesMedios: 5,
-          automacao: "Alta",
-          tempoResposta: "10 min"
-        },
-        "servicos-financeiros": {
-          custoPorAtendimento: 3.5,
-          custoMensal: 14000,
-          atendentesMedios: 9,
-          automacao: "Alta",
-          tempoResposta: "12 min"
-        },
-        "logistica-transporte": {
-          custoPorAtendimento: 3.8,
-          custoMensal: 12500,
-          atendentesMedios: 7,
-          automacao: "Média",
-          tempoResposta: "18 min"
-        },
-        "industria": {
-          custoPorAtendimento: 3.0,
-          custoMensal: 10500,
-          atendentesMedios: 6,
-          automacao: "Baixa",
-          tempoResposta: "22 min"
-        },
-        "imobiliario-construcao": {
-          custoPorAtendimento: 4.2,
-          custoMensal: 9800,
-          atendentesMedios: 5,
-          automacao: "Baixa",
-          tempoResposta: "30 min"
-        },
-        "agencias-marketing": {
-          custoPorAtendimento: 2.8,
-          custoMensal: 10000,
-          atendentesMedios: 4,
-          automacao: "Média",
-          tempoResposta: "14 min"
-        },
-        "telecomunicacoes": {
-          custoPorAtendimento: 3.6,
-          custoMensal: 15000,
-          atendentesMedios: 12,
-          automacao: "Alta",
-          tempoResposta: "8 min"
-        },
-        "turismo-hotelaria": {
-          custoPorAtendimento: 3.1,
-          custoMensal: 11000,
-          atendentesMedios: 6,
-          automacao: "Média",
-          tempoResposta: "20 min"
-        },
-        "outros": {
+    "varejoEcommerce": {
+    nome: "Varejo e E-commerce",
+    custoPorAtendimento: 2.80,
+    custoMensal: 12500,
+    atendentesMedios: 7,
+    eficiencia: 230,
+    automacao: "Média",
+    tempoRespostaMin: 12,
+    fontes: ["ABComm 2023", "RD Station 2022"],
+    custoMensalPorAtendente: 4235.50,
+    composicaoCusto: {
+      salarioBase: 2850,
+      encargos: 1385.50,
+      beneficios: 800
+    }
+  },
+  "educacao": {
+    nome: "Educação",
+    custoPorAtendimento: 3.20,
+    custoMensal: 9500,
+    atendentesMedios: 6,
+    automacao: "Baixa",
+    tempoRespostaMin: 20,
+    custoMensalPorAtendente: 3870.20,
+    composicaoCusto: {
+      salarioBase: 2600,
+      encargos: 1270.20,
+      beneficios: 700
+    }
+  },
+  "saude": {
+    nome: "Saúde",
+    custoPorAtendimento: 4.50,
+    custoMensal: 14200,
+    atendentesMedios: 9,
+    eficiencia: 180,
+    automacao: "Baixa",
+    tempoRespostaMin: 22,
+    fontes: ["McKinsey 2023", "Conselho Nacional de Saúde 2022"],
+    custoMensalPorAtendente: 5120.75,
+    composicaoCusto: {
+      salarioBase: 3500,
+      encargos: 1620.75,
+      beneficios: 1000
+    }
+  },
+  "tecnologiaSoftware": {
+    nome: "Tecnologia e Software",
+    custoPorAtendimento: 2.00,
+    custoMensal: 11000,
+    atendentesMedios: 5,
+    automacao: "Alta",
+    tempoRespostaMin: 10,
+    custoMensalPorAtendente: 4000.00,
+    composicaoCusto: {
+      salarioBase: 2700,
+      encargos: 1100,
+      beneficios: 200
+    }
+  },
+  "servicosFinanceiros": {
+    nome: "Serviços Financeiros",
+    custoPorAtendimento: 3.50,
+    custoMensal: 14000,
+    atendentesMedios: 9,
+    automacao: "Alta",
+    tempoRespostaMin: 12,
+    custoMensalPorAtendente: 4666.67,
+    composicaoCusto: {
+      salarioBase: 3000,
+      encargos: 1300,
+      beneficios: 366.67
+    }
+  },
+  "logisticaTransporte": {
+    nome: "Logística e Transporte",
+    custoPorAtendimento: 3.80,
+    custoMensal: 12500,
+    atendentesMedios: 7,
+    automacao: "Média",
+    tempoRespostaMin: 18,
+    custoMensalPorAtendente: 4464.29,
+    composicaoCusto: {
+      salarioBase: 2900,
+      encargos: 1200,
+      beneficios: 364.29
+    }
+  },
+  "industria": {
+    nome: "Indústria",
+    custoPorAtendimento: 3.00,
+    custoMensal: 10500,
+    atendentesMedios: 6,
+    automacao: "Baixa",
+    tempoRespostaMin: 22,
+    custoMensalPorAtendente: 4375.00,
+    composicaoCusto: {
+      salarioBase: 2800,
+      encargos: 1200,
+      beneficios: 375
+    }
+  },
+  "telecomunicacoes": {
+    custoPorAtendimento: 3.6,
+    custoMensal: 15000,
+    atendentesMedios: 12,
+    automacao: "Alta",
+    tempoResposta: "8 min",
+    fontes: "Brasscom 2023, Conexis Brasil Digital 2023",
+    custoMensalPorAtendente: 3913.00,
+    composicaoCusto: {
+      salarioBase: 2800.00,
+      encargos: 813.00,
+      beneficios: 300.00
+    }
+  },
+  "turismo-hotelaria": {
+    custoPorAtendimento: 3.1,
+    custoMensal: 11000,
+    atendentesMedios: 6,
+    automacao: "Média",
+    tempoResposta: "20 min",
+    fontes: "Ministério do Turismo 2023",
+    custoMensalPorAtendente: 3500.00,
+    composicaoCusto: {
+      salarioBase: 2500.00,
+      encargos: 700.00,
+      beneficios: 300.00
+    }
+  },
+  "imobiliario-construcao": {
+    custoPorAtendimento: 4.2,
+    custoMensal: 9800,
+    atendentesMedios: 5,
+    automacao: "Baixa",
+    tempoResposta: "30 min",
+    fontes: "Estimativas de mercado 2023",
+    custoMensalPorAtendente: 3800.00,
+    composicaoCusto: {
+      salarioBase: 2600.00,
+      encargos: 800.00,
+      beneficios: 400.00
+    }
+  },
+  "agencias-marketing": {
+    custoPorAtendimento: 2.8,
+    custoMensal: 10000,
+    atendentesMedios: 4,
+    automacao: "Média",
+    tempoResposta: "14 min",
+    fontes: "Estimativas de mercado 2023",
+    custoMensalPorAtendente: 3500.00,
+    composicaoCusto: {
+      salarioBase: 2400.00,
+      encargos: 700.00,
+      beneficios: 400.00
+    }
+  },
+    "outros": {
           custoPorAtendimento: 3.0,
           custoMensal: 10000,
           atendentesMedios: 6,
@@ -205,6 +264,34 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const atendimentosMensais = parseFloat(document.getElementById("atendimentos").value) || 0;
         const numeroAtendentes = parseFloat(document.getElementById("atendentes").value) || 0;
         const setorSelecionado = document.getElementById("segmento").value;
+        const crescimentoMensal = document.getElementById("crescimento-mensal-empresa").value;
+        const duvidasRepetidas = document.getElementById("porcentagem-de-duvidas-repetidas").value;
+
+        const formData = {
+            segmento: setorSelecionado,
+            atendentes: numeroAtendentes,
+            atendimentos: atendimentosMensais,
+            crescimentoMensal,
+            duvidasRepetidas
+          };
+
+
+        fetch('https://script.google.com/a/macros/octadesk.com/s/AKfycbyEDY7sV1OEcOAFUb4i01CCn38QCSq3AEkbUT9xYfy1fHJ7skE1GfR0OPouFUX7HxyHdQ/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(res => res.json())
+          .then(data => {
+            console.log('Dados enviados com sucesso!', data);
+            // Aqui você pode mostrar um feedback visual pro usuário
+          })
+          .catch(error => {
+            console.error('Erro ao enviar dados:', error);
+            // Aqui você pode mostrar uma mensagem de erro
+          });
 
         if (atendimentosMensais <= 0 || numeroAtendentes <= 0) {
             alert("Por favor, preencha todos os campos corretamente.");
