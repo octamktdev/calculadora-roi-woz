@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     function formatarMoeda(valor) {
-        if (valor === undefined || valor === null) {
-            console.error("Valor não definido para formatação");
+        if (!Number.isFinite(valor)) {
+            console.warn("Valor inválido para formatação:", valor);
             return "R$ 0,00";
         }
         return valor.toLocaleString("pt-BR", {
@@ -144,216 +144,59 @@ document.getElementById("obter-resultados").addEventListener("click", function()
     }
   });
   
- // Processar formulário de contato
-contatoForm.addEventListener("submit", function(e) {
+  contatoForm.addEventListener("submit", function(e) {
     e.preventDefault();
-    
+
+    // Coletar dados
     const nome = document.getElementById("nome").value;
     const email = document.getElementById("email").value;
     const empresa = document.getElementById("empresa").value;
-    
-    // Simular envio
-    console.log("Dados capturados:", { nome, email, empresa });
-    
-    // Esconder formulário e mostrar conteúdo
-    document.querySelector(".modal-form").style.display = "none";
+
+    const conteudo = document.getElementById("conteudo-exclusivo");
+    conteudo.classList.remove("conteudo-oculto");
+    conteudo.classList.add("conteudo-visivel");
+
+    // Esconder formulário e mostrar resultados
+    contatoForm.style.display = "none";
     conteudoExclusivo.style.display = "block";
-    
-    // Preencher os dados do benchmark
+
+    // Obter dados do setor
     const setorSelecionado = document.getElementById("segmento").value;
-    const dados = benchmarkPorSetor[setorSelecionado];
-    
-    // Atualizar texto
-    document.getElementById("detalhes-benchmark").innerHTML = `
-        <p><strong>Setor:</strong> ${document.getElementById("segmento").options[document.getElementById("segmento").selectedIndex].text}</p>
-        <p><strong>Custo por Atendimento:</strong> ${formatarMoeda(dados.custoPorAtendimento)}</p>
-        <p><strong>Custo Mensal Médio:</strong> ${formatarMoeda(dados.custoMensal)}</p>
-    `;
-    
-    // Preparar dados para os gráficos
+    const dadosSetor = benchmarkPorSetor[setorSelecionado];
+
+    // Obter dados do usuário
     const dadosUsuario = {
-        custoPorAtendimento: parseFloat(document.getElementById("result-custo-atendimento").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
-        custoMensal: parseFloat(document.getElementById("result-custo-geral-analistas").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
+        custoPorAtendimento: parseFloat(
+            document.getElementById("result-custo-atendimento").textContent
+                .replace(/[^\d,]/g, '')
+                .replace(',', '.')
+        ),
+        custoMensal: parseFloat(
+            document.getElementById("result-custo-geral-analistas").textContent
+                .replace(/[^\d,]/g, '')
+                .replace(',', '.')
+        ),
         atendentesMedios: parseFloat(document.getElementById("atendentes").value)
     };
-    
-    // Criar gráficos no modal (usando IDs diferentes)
-    criarGraficosModal(dados, dadosUsuario);
+
+    // Atualizar textos do benchmark (sem recriar os canvas)
+    const detalhesBenchmark = document.getElementById("detalhes-benchmark");
+    detalhesBenchmark.insertAdjacentHTML("afterbegin", `
+        <p><strong>Setor:</strong> ${document.getElementById("segmento").options[document.getElementById("segmento").selectedIndex].text}</p>
+        <p><strong>Custo por Atendimento:</strong> ${formatarMoeda(dadosSetor.custoPorAtendimento)}</p>
+        <p><strong>Custo Mensal Médio:</strong> ${formatarMoeda(dadosSetor.custoMensal)}</p>
+        <p><strong>Atendentes Médios:</strong> ${dadosSetor.atendentesMedios}</p>
+        <p><strong>Nível de Automação:</strong> ${dadosSetor.automacao}</p>
+        <p><strong>Tempo Médio de Resposta:</strong> ${dadosSetor.tempoResposta}</p>
+    `);
+
+    // Agora cria os gráficos nos canvases que já existem
+    setTimeout(() => {
+        criarGraficosModal(dadosSetor, dadosUsuario);
+        conteudo.style.opacity = 1;
+    }, 100);
 });
 
-function criarGraficosModal(dadosSetor, dadosUsuario) {
-    const cores = ['#4e73df', '#1cc88a'];
-    const labels = ['Sua Operação', 'Média do Setor'];
-    
-    // Gráfico de Custo por Atendimento no Modal
-    new Chart(
-        document.getElementById('modalCustoAtendimentoChart'),
-        {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Custo por Atendimento (R$)',
-                    data: [dadosUsuario.custoPorAtendimento, dadosSetor.custoPorAtendimento],
-                    backgroundColor: cores
-                }]
-            },
-            options: getChartOptions('Custo por Atendimento')
-        }
-    );
-    
-    // Adicionar outros gráficos similares para modalCustoMensalChart e modalAtendentesChart
-}
-
-function getChartOptions(title) {
-    return {
-        responsive: true,
-        plugins: {
-            title: { display: true, text: title, font: { size: 16 } },
-            legend: { display: false }
-        },
-        scales: {
-            y: { beginAtZero: true, title: { display: true, text: 'Valor em R$' } }
-        }
-    };
-}
-
-  setTimeout(() => {
-    const dadosUsuario = {
-        custoPorAtendimento: parseFloat(document.getElementById("result-custo-atendimento").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
-        custoMensal: parseFloat(document.getElementById("result-custo-geral-analistas").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
-        atendentesMedios: parseFloat(document.getElementById("atendentes").value)
-    };
-    
-    atualizarComparativo(dados, dadosUsuario);
-}, 100);
-  
-  // Botão de Download PDF (exemplo)
-  document.getElementById("download-pdf").addEventListener("click", function() {
-    alert("PDF gerado com sucesso! (simulação)");
-    modal.style.display = "none";
-  });
-
-  function atualizarComparativo(dadosSetor, dadosUsuario) {
-    // Dados formatados para os gráficos
-    const labels = ['Sua Operação', 'Média do Setor'];
-    const cores = ['#4e73df', '#1cc88a'];
-
-     // Destruir gráficos existentes
-     ['custoAtendimentoChart', 'custoMensalChart', 'atendentesChart'].forEach(id => {
-        const chart = Chart.getChart(id);
-        if (chart) chart.destroy();
-    });
-    
-    // Gráfico de Custo por Atendimento
-    new Chart(
-        document.getElementById('custoAtendimentoChart'),
-        {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Custo por Atendimento (R$)',
-                    data: [dadosUsuario.custoPorAtendimento, dadosSetor.custoPorAtendimento],
-                    backgroundColor: cores,
-                    borderColor: cores.map(c => c.replace('0.8', '1')),
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Custo por Atendimento',
-                        font: { size: 16 }
-                    },
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Valor em R$' }
-                    }
-                }
-            }
-        }
-    );
-
-    // Gráfico de Custo Mensal
-    new Chart(
-        document.getElementById('custoMensalChart'),
-        {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Custo Mensal (R$)',
-                    data: [dadosUsuario.custoMensal, dadosSetor.custoMensal],
-                    backgroundColor: cores,
-                    borderColor: cores.map(c => c.replace('0.8', '1')),
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Custo Mensal Total',
-                        font: { size: 16 }
-                    },
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Valor em R$' }
-                    }
-                }
-            }
-        }
-    );
-
-    // Gráfico de Número de Atendentes
-    new Chart(
-        document.getElementById('atendentesChart'),
-        {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Número de Atendentes',
-                    data: [dadosUsuario.atendentesMedios, dadosSetor.atendentesMedios],
-                    backgroundColor: cores,
-                    borderColor: cores.map(c => c.replace('0.8', '1')),
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Quantidade de Atendentes',
-                        font: { size: 16 }
-                    },
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Número de colaboradores' }
-                    }
-                }
-            }
-        }
-    );
-    console.log("Dados para gráficos:", {
-        setor: dadosSetor, 
-        usuario: dadosUsuario
-    });
-}
     form.addEventListener("submit", function (event) {
         event.preventDefault();
        
@@ -418,7 +261,7 @@ function getChartOptions(title) {
         
         const calcularResolucoesWozMaisAnalistas = 
         (analistasComWoz, custoAtendente, investimentoEmResolucoesWoz) => {
-            return (analistasComWoz-custoAtendente)+investimentoEmResolucoesWoz;
+            return (analistasComWoz * custoAtendente) + investimentoEmResolucoesWoz;
         }
 
         const resolucoesWozMaisAnalistas = calcularResolucoesWozMaisAnalistas
@@ -454,8 +297,18 @@ function getChartOptions(title) {
         document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`
         document.getElementById("valor-atendimento-com-woz").textContent = `${formatarMoeda(valorAtendimentoComWOZ)}`;
         document.getElementById("economia-com-analistas").textContent = `${formatarMoeda(resultEconomiaComAnalistas)}`;
-        document.getElementById("economia-total").textContent = `${economiaGeral.toFixed(2)}%`;
+        document.getElementById("economia-total").textContent = `${(economiaGeral * 100).toFixed(2)}%`;
     
+       // Mostrar a seção de resultados com transição
+        const resultsSection = document.getElementById("results-section");
+
+        resultsSection.classList.remove("visivel");
+        resultsSection.style.display = "flex";
+
+        setTimeout(() => {
+            resultsSection.classList.add("visivel");
+          }, 50);
+
          // Preparar dados para comparação
          const dadosUsuario = {
             custoPorAtendimento: custoPorAtendimento,
@@ -465,18 +318,110 @@ function getChartOptions(title) {
 
         const dados = benchmarkPorSetor[setorSelecionado];
 
-        if (dados && dadosUsuario) {
-            atualizarComparativo(dados, dadosUsuario)
+        if (dados) {
             document.getElementById("output-custo-atendimento").textContent = `R$ ${dados.custoPorAtendimento.toFixed(2)}`;
-            document.getElementById("output-custo-mensal").textContent = `R$ ${formatarMoeda(dados.custoMensal)}`;
+            document.getElementById("output-custo-mensal").textContent = `${formatarMoeda(dados.custoMensal)}`;
             document.getElementById("output-atendentes").textContent = `${dados.atendentesMedios} pessoas`;
             document.getElementById("output-automacao").textContent = `${dados.automacao}`;
             document.getElementById("output-tempo-resposta").textContent = `${dados.tempoResposta}`;
-
-            document.getElementById("resultados").style.display = "block";
-        }
-        else {
-            document.getElementById("resultados").style.display = "none";
         }
     });
+
+    function getDadosUsuario() {
+        return {
+            custoPorAtendimento: parseFloat(document.getElementById("result-custo-atendimento").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
+            custoMensal: parseFloat(document.getElementById("result-custo-geral-analistas").textContent.replace(/[^\d,]/g, '').replace(',', '.')),
+            atendentesMedios: parseFloat(document.getElementById("atendentes").value)
+        };
+    }
+    
+
+    // Função auxiliar para esperar elementos
+    function waitForElement(id, callback, attempts = 10, interval = 100) {
+        const check = (remaining) => {
+            const element = document.getElementById(id);
+            if (element) {
+                callback(element);
+            } else if (remaining > 0) {
+                setTimeout(() => check(remaining - 1), interval);
+            } else {
+                console.error(`Elemento ${id} não encontrado após ${attempts} tentativas`);
+            }
+        };
+        check(attempts);
+    }
+
+
+    function criarGraficosModal(dadosSetor, dadosUsuario) {
+        const chartConfigs = [
+            { id: 'modalCustoAtendimentoChart', label: 'Custo por Atendimento', dataKey: 'custoPorAtendimento' },
+            { id: 'modalCustoMensalChart', label: 'Custo Mensal', dataKey: 'custoMensal' },
+            { id: 'modalAtendentesChart', label: 'Atendentes', dataKey: 'atendentesMedios' }
+        ];
+    
+        chartConfigs.forEach(config => {
+            waitForElement(config.id, (canvas) => {
+                // Destruir gráfico existente
+                const chartInstance = Chart.getChart(canvas);
+                if (chartInstance) chartInstance.destroy();
+    
+                // Forçar redimensionamento
+                canvas.style.display = 'block';
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = 400;
+    
+                // Criar novo gráfico
+                new Chart(canvas, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Sua Operação', 'Média do Setor'],
+                        datasets: [{
+                            label: config.label,
+                            data: [dadosUsuario[config.dataKey], dadosSetor[config.dataKey]],
+                            backgroundColor: ['#4e73df', '#1cc88a'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: { display: true, text: config.label },
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            });
+        });
+    }
+    
+    // Mantenha esta função auxiliar
+    function getChartOptions(title) {
+        return {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title,
+                    font: { size: 16 }
+                },
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { 
+                        display: true, 
+                        text: title.includes('Atendentes') 
+                            ? 'Número de colaboradores' 
+                            : 'Valor em R$' 
+                    }
+                }
+            }
+        };
+    }
+
 });

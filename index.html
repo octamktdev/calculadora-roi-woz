@@ -37,12 +37,12 @@
 
                         <div class="content-wrapper">
                             <label for="atendentes">Número de atendentes na operação:</label>
-                            <input type="number" id="atendentes" required><br>
+                            <input placeholder="Ex: 23" type="number" id="atendentes" required><br>
                         </div>
 
                         <div class="content-wrapper">
                             <label for="atendimentos">Média mensal de atendimentos:</label>
-                            <input type="number" id="atendimentos" required><br>
+                            <input placeholder="Ex: 3000 " type="number" id="atendimentos" required><br>
                         </div>
 
                     </div>
@@ -50,17 +50,18 @@
                     <div class="form-line">
                         <div class="content-wrapper">
                             <label for="crescimento-mensal-empresa">Crescimento mensal da empresa?</label>
-                            <input type="number" id="crescimento-mensal-empresa">
+                            <input placeholder="Ex: 5%" type="number" id="crescimento-mensal-empresa">
                         </div>
 
                         <div class="content-wrapper">
                             <label for="porcentagem-de-duvidas-repetidas">Porcentagem de dúvidas repetidas?</label>
-                            <input type="number" id="porcentagem-de-duvidas-repetidas">
+                            <input placeholder="Ex: 12%" type="number" id="porcentagem-de-duvidas-repetidas">
                         </div>
                     </div>
 
-
-                    <button class="button" type="submit">Calcular</button>
+                    <div class="button-group">
+                        <button class="button" type="submit">Calcular</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -115,6 +116,10 @@
                 <div class="result-item">
                     <span>Economia total com WOZ: </span>
                     <span id="economia-total" class="result"></span>
+                </div>
+
+                <div class="button-group">
+                    <button class="button">Fale com um especialista</button>
                 </div>
             </div>
 
@@ -185,8 +190,7 @@
                 </div>
             </div>
 
-            <div id="conteudo-exclusivo" style="display: none;">
-                <h3>Benchmarks Completos do Setor</h3>
+            <div id="conteudo-exclusivo" class="conteudo-oculto">
                 <div id="detalhes-benchmark">
                     <div class="column">
                         <h2>Comparativo com o Setor</h2>
