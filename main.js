@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
       beneficios: 400.00
     }
   },
-    "outros": {
+        "outros": {
           custoPorAtendimento: 3.0,
           custoMensal: 10000,
           atendentesMedios: 6,
@@ -275,28 +275,20 @@ document.getElementById("obter-resultados").addEventListener("click", function()
             duvidasRepetidas
           };
 
-
-        fetch('https://script.google.com/a/macros/octadesk.com/s/AKfycbyEDY7sV1OEcOAFUb4i01CCn38QCSq3AEkbUT9xYfy1fHJ7skE1GfR0OPouFUX7HxyHdQ/exec', {
-            method: 'POST',
-            body: JSON.stringify(formData),
+          fetch("https://script.google.com/macros/s/AKfycbzX2dCeu6Z-0ll4QZALzccJnbiKxVJOGoAggmbzsvvnayErefVHhGflZTl7sG77jkPj/exec", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
-            }
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
           })
-          .then(res => res.json())
+          .then(response => response.json())
           .then(data => {
-            console.log('Dados enviados com sucesso!', data);
-            // Aqui você pode mostrar um feedback visual pro usuário
+            console.log("Resposta do Google Sheets:", data);
           })
           .catch(error => {
-            console.error('Erro ao enviar dados:', error);
-            // Aqui você pode mostrar uma mensagem de erro
+            console.error("Erro ao enviar dados:", error);
           });
-
-        if (atendimentosMensais <= 0 || numeroAtendentes <= 0) {
-            alert("Por favor, preencha todos os campos corretamente.");
-            return;
-        }
 
 
         // Obtendo o custo do setor selecionado
