@@ -151,6 +151,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
     const nome = document.getElementById("nome").value;
     const email = document.getElementById("email").value;
     const empresa = document.getElementById("empresa").value;
+    const phone = document.getElementById('phone').value;
 
     const conteudo = document.getElementById("conteudo-exclusivo");
     conteudo.classList.remove("conteudo-oculto");

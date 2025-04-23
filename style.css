@@ -14,6 +14,9 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
 .text-color-primary-blue{
   color: #1366C9;
 }
+.text-color-red{
+  color: red;
+}
 
 .main-wrapper{
     display: flex;
@@ -282,6 +285,11 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
       line-height: 115%; /* 2.875rem */
       letter-spacing: -0.05rem;
     }
+
+    img{
+      width: 80%;
+      padding-top: 3rem;
+    }
   }
 }
 
@@ -381,11 +389,12 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     cursor: pointer;
   }
   .close-modal {
-    color: #aaa;
+    color: #fff;
     float: right;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     cursor: pointer;
+    padding: 1rem;
   }
   
   .close-modal:hover {
@@ -400,6 +409,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
+    font-family: var(--poppins);
   }
   
   .form-group input {

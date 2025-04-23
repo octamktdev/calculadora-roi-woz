@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="button-group">
-                    <button class="button">Fale com um especialista</button>
+                    <button href="www.octadesk.com/form-agendamento" class="button">Fale com um especialista</button>
                 </div>
             </div>
 
@@ -169,21 +169,26 @@
                     <p><b>Quer saber como sua operação se compara com o mercado?</b> Desbloqueie a visão completa com
                         dados exclusivos do setor, benchmark de performance e insights valiosos. Preencha o formulário e
                         receba tudo por e-mail! 👉</p>
+                        <img src="img/comp_modal_cta.webp" alt="">
                 </div>
                 <div class="line-divider"></div>
                 <div class="modal-form">
                     <form id="contatoForm">
                         <div class="form-group">
-                            <label for="nome">Nome Completo:</label>
-                            <input type="text" id="nome" required>
+                            <label for="nome">Nome Completo<span class="text-color-red">*</span></label>
+                            <input placeholder="Digite seu nome" type="text" id="nome" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">E-mail Corporativo:</label>
-                            <input type="email" id="email" required>
+                            <label for="phone">Número de telefone<span class="text-color-red">*</span></label>
+                            <input placeholder="Ex: (00) 9999-9999" type="tel" id="phone" required>
                         </div>
                         <div class="form-group">
-                            <label for="empresa">Empresa:</label>
-                            <input type="text" id="empresa" required>
+                            <label for="email">E-mail Corporativo<span class="text-color-red">*</span></label>
+                            <input placeholder="Digite seu email" type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresa">Empresa<span class="text-color-red">*</span></label>
+                            <input placeholder="Digite o nome da sua empresa" type="text" id="empresa" required>
                         </div>
                         <button class="button" type="submit">Acessar comparativo</button>
                     </form>
@@ -205,7 +210,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="acoes">
+                <div class="acoes" style="display: none;">
                     <button id="download-pdf">Baixar versão PDF</button>
                     <button id="agendar-consulta">Agendar Bate-papo</button>
                 </div>
