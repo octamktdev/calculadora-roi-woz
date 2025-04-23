@@ -268,28 +268,28 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const duvidasRepetidas = document.getElementById("porcentagem-de-duvidas-repetidas").value;
 
         const formData = {
-            segmento: setorSelecionado,
-            atendentes: numeroAtendentes,
-            atendimentos: atendimentosMensais,
-            crescimentoMensal,
-            duvidasRepetidas
+            segmento: document.getElementById("segmento").value,
+            atendentes: document.getElementById("atendentes").value,
+            atendimentos: document.getElementById("atendimentos").value,
+            crescimentoMensal: document.getElementById("crescimento-mensal-empresa").value,
+            duvidasRepetidas: document.getElementById("porcentagem-de-duvidas-repetidas").value
           };
 
           fetch("https://script.google.com/macros/s/AKfycbzX2dCeu6Z-0ll4QZALzccJnbiKxVJOGoAggmbzsvvnayErefVHhGflZTl7sG77jkPj/exec", {
             method: "POST",
-            mode: "no-cors", 
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "application/json"
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formData)
           })
-          .then(response => response.json())
-          .then(data => {
-            console.log("Resposta do Google Sheets:", data);
-          })
-          .catch(error => {
-            console.error("Erro ao enviar dados:", error);
-          });
+            .then(response => response.json())
+            .then(data => {
+              console.log("Resposta do Apps Script:", data);
+              // Aqui você pode mostrar um alerta, resetar o formulário, etc
+            })
+            .catch(error => {
+              console.error("Erro ao enviar os dados:", error);
+        });
 
 
         // Obtendo o custo do setor selecionado
