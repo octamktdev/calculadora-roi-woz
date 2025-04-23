@@ -20,8 +20,6 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     align-self: center;
     align-items: center;
     flex-direction: column;
-    padding: 5%;
-    width: 100%;
 }
 
 #form-section{
@@ -47,12 +45,18 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
             gap: .25rem;
             width: 100%;
 
+            select{
+              height: 2.70rem;
+            }
+
             select, input{
                 height: 2rem;
                 border: 1px solid var(--blue-grey-info);
                 border-radius: .5rem;
                 color: var(--dark-blue);
                 width: 100%;
+                font-size: 1rem;
+                padding: .25rem;
             }
 
             label{
@@ -93,7 +97,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     flex: row;
     gap: 2rem;
     align-self: center;
-    padding: 5% 1rem;
+    padding: 3% 1rem;
 
     opacity: 0;
     display: none;
