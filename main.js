@@ -260,7 +260,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
     const custoAtendente = dadosSetor.custoMensalPorAtendente || 3500; // Valor padrão caso não exista
 
     document.getElementById("custo-utilizado").textContent = 
-        `Custo utilizado (média do setor): ${formatarMoeda(custoAtendente)}`;
+        `${formatarMoeda(custoAtendente)}`;
 
     // Obter dados do usuário
     const dadosUsuario = {

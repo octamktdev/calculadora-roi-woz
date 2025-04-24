@@ -216,7 +216,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
             color: white;
           }
 
-          button{
+          a{
             padding: .5rem 2rem;
             color: white;
             font-size: large;
@@ -226,6 +226,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
             border-radius: .75rem;
             background-color: transparent;
             cursor: pointer;
+            text-decoration: none;
             
           }
         }
