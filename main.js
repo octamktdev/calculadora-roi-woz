@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("roiForm");
 
     const benchmarkPorSetor = {
-    "varejoEcommerce": {
+    "varejo-ecommerce": {
     nome: "Varejo e E-commerce",
     custoPorAtendimento: 2.80,
     custoMensal: 12500,
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
       beneficios: 1000
     }
   },
-  "tecnologiaSoftware": {
+  "tecnologia-software": {
     nome: "Tecnologia e Software",
     custoPorAtendimento: 2.00,
     custoMensal: 11000,
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
       beneficios: 200
     }
   },
-  "servicosFinanceiros": {
+  "servicos-financeiros": {
     nome: "Serviços Financeiros",
     custoPorAtendimento: 3.50,
     custoMensal: 14000,
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
       beneficios: 366.67
     }
   },
-  "logisticaTransporte": {
+  "logistica-transporte": {
     nome: "Logística e Transporte",
     custoPorAtendimento: 3.80,
     custoMensal: 12500,
@@ -172,13 +172,20 @@ document.addEventListener("DOMContentLoaded", function () {
       beneficios: 400.00
     }
   },
-        "outros": {
-          custoPorAtendimento: 3.0,
-          custoMensal: 10000,
-          atendentesMedios: 6,
-          automacao: "Média",
-          tempoResposta: "20 min"
+    "outros": {
+    nome: "Outros",
+    custoPorAtendimento: 3.0,
+    custoMensal: 10000,
+    atendentesMedios: 6,
+    automacao: "Média",
+    tempoResposta: "20 min",
+    custoMensalPorAtendente: 3500.00, // Adicionado valor padrão
+    composicaoCusto: { // Adicionada estrutura de composição
+      salarioBase: 2500.00,
+      encargos: 700.00,
+      beneficios: 300.00
         }
+    }
       };
 
     const modal = document.getElementById("material-rico-modal");
@@ -250,6 +257,10 @@ document.getElementById("obter-resultados").addEventListener("click", function()
     // Obter dados do setor
     const setorSelecionado = document.getElementById("segmento").value;
     const dadosSetor = benchmarkPorSetor[setorSelecionado];
+    const custoAtendente = dadosSetor.custoMensalPorAtendente || 3500; // Valor padrão caso não exista
+
+    document.getElementById("custo-utilizado").textContent = 
+        `Custo utilizado (média do setor): ${formatarMoeda(custoAtendente)}`;
 
     // Obter dados do usuário
     const dadosUsuario = {
