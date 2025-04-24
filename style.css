@@ -143,6 +143,11 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
 
       .result-item{
         border-bottom: 1px solid #CCAEDE;
+
+        span{
+          font-weight: 600;
+          color: #50346D;
+        }
       }
 
       .button-group{

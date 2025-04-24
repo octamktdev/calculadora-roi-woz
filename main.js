@@ -267,30 +267,25 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const crescimentoMensal = document.getElementById("crescimento-mensal-empresa").value;
         const duvidasRepetidas = document.getElementById("porcentagem-de-duvidas-repetidas").value;
 
-        const formData = {
-            segmento: document.getElementById("segmento").value,
-            atendentes: document.getElementById("atendentes").value,
-            atendimentos: document.getElementById("atendimentos").value,
-            crescimentoMensal: document.getElementById("crescimento-mensal-empresa").value,
-            duvidasRepetidas: document.getElementById("porcentagem-de-duvidas-repetidas").value
-          };
+        const formData = new FormData();
+        formData.append("entry.1816620597", document.getElementById("segmento").value);
+        formData.append("entry.1220843253", document.getElementById("atendentes").value);
+        formData.append("entry.1994322404", document.getElementById("atendimentos").value);
+        formData.append("entry.355411147", document.getElementById("crescimento-mensal-empresa").value);
+        formData.append("entry.1832036786", document.getElementById("porcentagem-de-duvidas-repetidas").value);
 
-          fetch("https://script.google.com/macros/s/AKfycbwQoYaEdPqMQHT5h74WKywKqtEzR_ev_xwVsArTp9MCF3f2W7ehKXYlVQ3vA1r44Y5WzA/exec", {
+        fetch("https://docs.google.com/forms/d/e/1FAIpQLSfZB65owJNwrzWL04AODTRtJhKcQpkt8iULfFeqWacBR-3KyA/formResponse", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-          })
-            .then(response => response.json())
-            .then(data => {
-              console.log("Resposta do Apps Script:", data);
-              // Aqui você pode mostrar um alerta, resetar o formulário, etc
-            })
-            .catch(error => {
-              console.error("Erro ao enviar os dados:", error);
+            mode: "no-cors",
+            body: formData
+        })
+        .then(() => {
+            console.log("Dados enviados com sucesso para o Google Forms!");
+            // Aqui você pode mostrar uma mensagem de sucesso, resetar o form, etc
+        })
+        .catch(error => {
+            console.error("Erro ao enviar os dados:", error);
         });
-
 
         // Obtendo o custo do setor selecionado
         const dadosSetor = benchmarkPorSetor[setorSelecionado];
