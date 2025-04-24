@@ -206,11 +206,38 @@ document.getElementById("obter-resultados").addEventListener("click", function()
   contatoForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    // Coletar dados
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const empresa = document.getElementById("empresa").value;
-    const phone = document.getElementById('phone').value;
+    // Captura os valores dos campos
+    const nome = document.getElementById("nome").value.trim();
+    const telefone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const empresa = document.getElementById("empresa").value.trim();
+
+     // Monta o payload para o Make
+  const data = {
+    nome: nome,
+    telefone: telefone,
+    email: email,
+    empresa: empresa
+  };
+
+  // Substitua pela URL do seu webhook do Make
+  const webhookUrl = "https://hook.us2.make.com/mu93lt625h5bfmq3us3cn29tfx3lxc3o";
+
+  fetch(webhookUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => {
+      if (!response.ok) throw new Error("Erro no envio");
+      console.log("Dados enviados com sucesso!");
+      // Aqui você pode redirecionar, abrir uma seção, liberar acesso, etc.
+    })
+    .catch(error => {
+      console.error("Erro ao enviar dados:", error);
+    });
 
     const conteudo = document.getElementById("conteudo-exclusivo");
     conteudo.classList.remove("conteudo-oculto");
