@@ -333,7 +333,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
          // Mostra o custo utilizado nos cálculos
         document.getElementById("custo-utilizado").textContent = 
-        `Custo utilizado (média do setor): ${formatarMoeda(custoAtendente)}`;
+        `${formatarMoeda(custoAtendente)}`;
 
         // Validação básica
         if (atendimentosMensais <= 0 || numeroAtendentes <= 0 || custoAtendente <= 0) {
