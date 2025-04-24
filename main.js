@@ -267,25 +267,27 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const crescimentoMensal = document.getElementById("crescimento-mensal-empresa").value;
         const duvidasRepetidas = document.getElementById("porcentagem-de-duvidas-repetidas").value;
 
-        const formData = new FormData();
-        formData.append("entry.1816620597", document.getElementById("segmento").value);
-        formData.append("entry.1220843253", document.getElementById("atendentes").value);
-        formData.append("entry.1994322404", document.getElementById("atendimentos").value);
-        formData.append("entry.355411147", document.getElementById("crescimento-mensal-empresa").value);
-        formData.append("entry.1832036786", document.getElementById("porcentagem-de-duvidas-repetidas").value);
-
-        fetch("https://docs.google.com/forms/d/e/1FAIpQLSfZB65owJNwrzWL04AODTRtJhKcQpkt8iULfFeqWacBR-3KyA/formResponse", {
+        const payload = {
+            segmento: document.getElementById("segmento").value,
+            atendentes: document.getElementById("atendentes").value,
+            atendimentos: document.getElementById("atendimentos").value,
+            crescimentoMensal: document.getElementById("crescimento-mensal-empresa").value,
+            duvidasRepetidas: document.getElementById("porcentagem-de-duvidas-repetidas").value
+          };
+        
+          fetch("https://hook.us2.make.com/pyrznbqqpp6361qqsc1pij0pcseb23xl", {
             method: "POST",
-            mode: "no-cors",
-            body: formData
-        })
-        .then(() => {
-            console.log("Dados enviados com sucesso para o Google Forms!");
-            // Aqui você pode mostrar uma mensagem de sucesso, resetar o form, etc
-        })
-        .catch(error => {
-            console.error("Erro ao enviar os dados:", error);
-        });
+            body: JSON.stringify(payload),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+          .then(() => {
+            console.log("Dados enviados com sucesso!");
+          })
+          .catch(error => {
+            console.error("Erro ao enviar dados:", error);
+          });
 
         // Obtendo o custo do setor selecionado
         const dadosSetor = benchmarkPorSetor[setorSelecionado];
