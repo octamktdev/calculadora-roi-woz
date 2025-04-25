@@ -351,7 +351,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
         const investimentoEmResolucoesWoz = calcularBonusAtendimento(estimativaAtendimentosComIA);
 
-                // Calcule a capacidade e custo por atendimento
+        // Calcule a capacidade e custo por atendimento
         const capacidadeAtual = numeroAtendentes === 0 ? 0 : atendimentosMensais / numeroAtendentes;
         const custoPorAtendimento = capacidadeAtual === 0 ? 0 : custoAtendente / capacidadeAtual;
 
@@ -361,8 +361,8 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const savingMensal = (numeroAtendentes - numeroAtendentesWOZ) * custoAtendente;
         const savingAnual = savingMensal * 12;
 
-         // Cálculo do custo por atendimento
-         const custoPorAtendimentoWOZ = custoAtendente / capacidadeWOZ;
+        // Cálculo do custo por atendimento
+        const custoPorAtendimentoWOZ = custoAtendente / capacidadeWOZ;
 
         const calcularAnalistasNecessariosComWoz = 
         (atendimentosMensais, estimativaAtendimentosComIA, capacidadeAtual) => {
@@ -397,8 +397,18 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const resultEconomiaComAnalistas = calcularEconomiaComAnalistas(custoGeralAnalistas, analistasComWoz, capacidadeAtual);
 
         const calculoEconomiaGeral = (valorAtendimentoComWOZ, custoPorAtendimento) => {
-            if (custoPorAtendimento === 0) return ""; 
-            return 1 - (valorAtendimentoComWOZ / custoPorAtendimento);
+            if (custoPorAtendimento === 0) return "";
+        
+            const economia = 1 - (valorAtendimentoComWOZ / custoPorAtendimento);
+            const economiaSegura = Math.max(0, economia);
+            const porcentagem = economiaSegura * 100;
+            
+            console.log("valorAtendimentoComWOZ:", valorAtendimentoComWOZ);
+            console.log("custoPorAtendimento:", custoPorAtendimento);
+
+            return Number.isInteger(porcentagem)
+                ? `${porcentagem.toFixed(0)}%`
+                : `${porcentagem.toFixed(2)}%`;
         };
 
         const economiaGeral = calculoEconomiaGeral(valorAtendimentoComWOZ, custoPorAtendimento);
@@ -406,14 +416,14 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         // Atualizar os blocos de resultado
         document.getElementById("result-custo-geral-analistas").textContent = `${formatarMoeda(custoGeralAnalistas)}`;
         document.getElementById("result-custo-atendimento").textContent = `${formatarMoeda(custoPorAtendimento)}`;
-        document.getElementById("result-atendimento-analista").textContent = ` ${capacidadeAtual.toFixed(2)} atendimentos/analista`;
+        document.getElementById("result-atendimento-analista").textContent = ` ${Math.trunc(capacidadeAtual)}`;
         document.getElementById("result-estimativa-atendimento-com-ia").textContent = `${estimativaAtendimentosComIA}`;
         document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`
-        document.getElementById("analistas-necessarios-com-woz").textContent = `${analistasComWoz}`;
+        document.getElementById("analistas-necessarios-com-woz").textContent = `${Math.trunc(analistasComWoz)}`;
         document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`
         document.getElementById("valor-atendimento-com-woz").textContent = `${formatarMoeda(valorAtendimentoComWOZ)}`;
         document.getElementById("economia-com-analistas").textContent = `${formatarMoeda(resultEconomiaComAnalistas)}`;
-        document.getElementById("economia-total").textContent = `${(economiaGeral * 100).toFixed(2)}%`;
+        document.getElementById("economia-total").textContent = economiaGeral;
     
        // Mostrar a seção de resultados com transição
         const resultsSection = document.getElementById("results-section");
@@ -539,4 +549,23 @@ document.getElementById("obter-resultados").addEventListener("click", function()
             }
         };
     }
+
+    function formatPercentageInput(input) {
+        input.addEventListener('input', () => {
+          let value = input.value.replace('%', '').trim();
+          
+          // Permite apenas números e ponto ou vírgula
+          if (!isNaN(value) && value !== '') {
+            input.value = value + '%';
+          } else if (value === '') {
+            input.value = '';
+          }
+        });
+      }
+      
+      const campoCrescimento = document.getElementById('crescimento-mensal-empresa');
+      const campoDuvidas = document.getElementById('porcentagem-de-duvidas-repetidas');
+      
+      formatPercentageInput(campoCrescimento);
+      formatPercentageInput(campoDuvidas);
 });

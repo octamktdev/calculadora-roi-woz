@@ -49,13 +49,13 @@
 
                     <div class="form-line">
                         <div class="content-wrapper">
-                            <label for="crescimento-mensal-empresa">Crescimento mensal da empresa?</label>
-                            <input placeholder="Ex: 5%" type="number" id="crescimento-mensal-empresa">
+                            <label for="crescimento-mensal-empresa">Crescimento mensal da empresa (em porcentagem)</label>
+                            <input required placeholder="Ex: 5%" type="text" id="crescimento-mensal-empresa">
                         </div>
 
                         <div class="content-wrapper">
-                            <label for="porcentagem-de-duvidas-repetidas">Porcentagem de dúvidas repetidas?</label>
-                            <input placeholder="Ex: 12%" type="number" id="porcentagem-de-duvidas-repetidas">
+                            <label for="porcentagem-de-duvidas-repetidas">Porcentagem de dúvidas repetidas</label>
+                            <input required placeholder="Ex: 12%" type="text" id="porcentagem-de-duvidas-repetidas">
                         </div>
                     </div>
 
@@ -70,51 +70,57 @@
             <div id="result-operacao" class="column">
                 <h3>Operação atual</h3>
                 <div class="result-item">
-                    <span>Custo geral de com analistas:</span>
-                    <span id="result-custo-geral-analistas" class="result"></span>
+                    <span>Capacidade de atendimentos por atendente: </span>
+                    <span id="result-atendimento-analista" class="result"></span>
                 </div>
+
                 <div class="result-item">
-                    <span>Valor do atendimento atualmente: </span>
+                    <span>Custo de cada atendimento: </span>
                     <span id="result-custo-atendimento" class="result"></span>
                 </div>
+
                 <div class="result-item">
-                    <span>Capacidade atual:</span>
-                    <span id="result-atendimento-analista" class="result"></span>
+                    <span>Custo geral da operação sem IA:</span>
+                    <span id="result-custo-geral-analistas" class="result"></span>
                 </div>
             </div>
 
             <div id="result-woz" class="column">
                 <h3>Operação com WOZ</h3>
                 <div class="result-item">
-                    <span>Quantos atendimentos esperamos resolver diretamente com a IA:</span>
-                    <span id="analistas-necessarios-com-woz" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Custo utilizado (média do setor): </span>
-                    <span id="custo-utilizado" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Valor do atendimento com WOZ:</span>
-                    <span id="valor-atendimento-com-woz" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Economia com analistas: </span>
-                    <span id="economia-com-analistas" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Quantos atendimentos esperamos resolver diretamente com a IA:</span>
+                    <span>Capacidade mensal de atendimento por atendente com IA: </span>
                     <span id="result-estimativa-atendimento-com-ia" class="result"></span>
                 </div>
                 <div class="result-item">
-                    <span>Investimento em Resoluções - Woz:</span>
-                    <span id="result-investimentos-resolucoes-woz" class="result"></span>
+                    <span>Custo de cada atendimento com IA: </span>
+                    <span id="valor-atendimento-com-woz" class="result"></span>
                 </div>
                 <div class="result-item">
-                    <span>Resoluções Woz + Analistas:</span>
+                    <span>Custo mensal geral da operação com IA:</span>
                     <span id="custo-resolucoes-analistas-mais-woz" class="result"></span>
                 </div>
+
+                        <div class="result-item">
+                            <span>Atendentes necessários na operação: </span>
+                            <span id="analistas-necessarios-com-woz" class="result"></span>
+                        </div>
+        
+                        <div class="result-item">
+                            <span>Economia mensal com atendentes: </span>
+                            <span id="economia-com-analistas" class="result"></span>
+                        </div>
+                        <div class="result-item">
+                            <span>Custos mensais dos atendimentos do WOZ: </span>
+                            <span id="result-investimentos-resolucoes-woz" class="result"></span>
+                        </div>
+        
+                        <div class="result-item hide">
+                            <span>Custo utilizado (média do setor): </span>
+                            <span id="custo-utilizado" class="result"></span>
+                        </div>     
+
                 <div class="result-item">
-                    <span><b>ECONOMIA TOTAL:</b></span>
+                    <span><b>ECONOMIA MENSAL TOTAL:</b></span>
                     <span id="economia-total" class="result"></span>
                 </div>
 

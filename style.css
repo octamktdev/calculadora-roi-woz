@@ -17,7 +17,9 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
 .text-color-red{
   color: red;
 }
-
+.hide{
+  display: none;
+}
 .main-wrapper{
     display: flex;
     align-self: center;
@@ -124,6 +126,10 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
 
         .result-item{
           border-bottom: solid 1px #C4C7CF;
+
+          span{
+            font-size: small;
+          }
         }
     }
 
@@ -141,12 +147,19 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
         -webkit-text-fill-color: transparent;
       }
 
+      .secondary-info{
+        background-color: #fbf6ff;
+        padding: 0 1rem;
+        border-radius: .35rem;
+      }
+
       .result-item{
         border-bottom: 1px solid #CCAEDE;
 
         span{
           font-weight: 600;
           color: #50346D;
+          font-size: small;
         }
       }
 
@@ -181,7 +194,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     }
 
     .result-item{
-      padding: 1rem 0;
+      padding: .55rem 0;
     }
 
     #result-benchmark{
