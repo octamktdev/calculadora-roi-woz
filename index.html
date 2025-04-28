@@ -66,100 +66,104 @@
             </form>
         </div>
 
+        <div id="dica-eficiencia">
+
+        </div>
+
         <div id="results-section">
-            <div id="result-operacao" class="column">
-                <h3>Operação atual</h3>
-                <div class="result-item">
-                    <span>Capacidade de atendimentos por atendente: </span>
-                    <span id="result-atendimento-analista" class="result"></span>
-                </div>
-
-                <div class="result-item">
-                    <span>Custo de cada atendimento: </span>
-                    <span id="result-custo-atendimento" class="result"></span>
-                </div>
-
-                <div class="result-item">
-                    <span>Custo geral da operação sem IA:</span>
-                    <span id="result-custo-geral-analistas" class="result"></span>
-                </div>
-            </div>
-
-            <div id="result-woz" class="column">
-                <h3>Operação com WOZ</h3>
-                <div class="result-item">
-                    <span>Capacidade mensal de atendimento por atendente com IA: </span>
-                    <span id="result-estimativa-atendimento-com-ia" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Custo de cada atendimento com IA: </span>
-                    <span id="valor-atendimento-com-woz" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Custo mensal geral da operação com IA:</span>
-                    <span id="custo-resolucoes-analistas-mais-woz" class="result"></span>
-                </div>
-
-                        <div class="result-item">
-                            <span>Atendentes necessários na operação: </span>
-                            <span id="analistas-necessarios-com-woz" class="result"></span>
-                        </div>
-        
-                        <div class="result-item">
-                            <span>Economia mensal com atendentes: </span>
-                            <span id="economia-com-analistas" class="result"></span>
-                        </div>
-                        <div class="result-item">
-                            <span>Custos mensais dos atendimentos do WOZ: </span>
-                            <span id="result-investimentos-resolucoes-woz" class="result"></span>
-                        </div>
-        
-                        <div class="result-item hide">
-                            <span>Custo utilizado (média do setor): </span>
-                            <span id="custo-utilizado" class="result"></span>
-                        </div>     
-
-                <div class="result-item">
-                    <span><b>ECONOMIA MENSAL TOTAL:</b></span>
-                    <span id="economia-total" class="result"></span>
-                </div>
-
-                <div class="button-group">
-                   <a class="button" href="https://octadesk.com/form-agendamento" target="_blank">Fale com um especialista</a>
-                </div>
-            </div>
-
-            <div id="result-benchmark" class="column">
-                <div class="div-overlay">
-                    <div class="overlay-content">
-                        <img src="img/eye-off.svg" alt="">
-                        <span>Entenda como o Octa traz produtividade e reduz custos</span>
-                        <a href="https://octadesk.com/form-agendamento" target="_blank">Falar com um especialista</a>
-                        <a id="obter-resultados" style="display: none;">Acessar dados</a>
+                <div id="result-operacao" class="column">
+                    <h3>Operação atual</h3>
+                    <div class="result-item">
+                        <span>Capacidade de atendimentos por atendente: </span>
+                        <span id="result-atendimento-analista" class="result"></span>
+                    </div>
+    
+                    <div class="result-item">
+                        <span>Custo de cada atendimento: </span>
+                        <span id="result-custo-atendimento" class="result"></span>
+                    </div>
+    
+                    <div class="result-item">
+                        <span>Custo geral da operação sem IA:</span>
+                        <span id="result-custo-geral-analistas" class="result"></span>
                     </div>
                 </div>
-                <h3>Visão de mercado</h3>
-                <div class="result-item">
-                    <span>Custo por atendimento: </span>
-                    <span id="output-custo-atendimento" class="result"></span>
+    
+                <div id="result-woz" class="column">
+                    <h3>Operação com WOZ</h3>
+                    <div class="result-item">
+                        <span>Capacidade mensal de atendimento por atendente com IA: </span>
+                        <span id="result-estimativa-atendimento-com-ia" class="result"></span>
+                    </div>
+                    <div class="result-item">
+                        <span>Custo de cada atendimento com IA: </span>
+                        <span id="valor-atendimento-com-woz" class="result"></span>
+                    </div>
+                    <div class="result-item">
+                        <span>Custo mensal geral da operação com IA:</span>
+                        <span id="custo-resolucoes-analistas-mais-woz" class="result"></span>
+                    </div>
+    
+                            <div class="result-item">
+                                <span>Atendentes necessários na operação: </span>
+                                <span id="analistas-necessarios-com-woz" class="result"></span>
+                            </div>
+            
+                            <div class="result-item">
+                                <span>Economia mensal com atendentes: </span>
+                                <span id="economia-com-analistas" class="result"></span>
+                            </div>
+                            <div class="result-item">
+                                <span>Custos mensais dos atendimentos do WOZ: </span>
+                                <span id="result-investimentos-resolucoes-woz" class="result"></span>
+                            </div>
+            
+                            <div class="result-item hide">
+                                <span>Custo utilizado (média do setor): </span>
+                                <span id="custo-utilizado" class="result"></span>
+                            </div>     
+    
+                    <div class="result-item">
+                        <span><b>ECONOMIA MENSAL TOTAL:</b></span>
+                        <span id="economia-total" class="result"></span>
+                    </div>
+    
+                    <div class="button-group">
+                       <a class="button" href="https://octadesk.com/form-agendamento" target="_blank">Fale com um especialista</a>
+                    </div>
                 </div>
-                <div class="result-item">
-                    <span>Custo médio mensal no setor:</span>
-                    <span id="output-custo-mensal" class="result"></span>
+    
+                <div id="result-benchmark" class="column">
+                    <div class="div-overlay">
+                        <div class="overlay-content">
+                            <img src="img/eye-off.svg" alt="">
+                            <span>Entenda como o Octa traz produtividade e reduz custos</span>
+                            <a href="https://octadesk.com/form-agendamento" target="_blank">Falar com um especialista</a>
+                            <a id="obter-resultados" style="display: none;">Acessar dados</a>
+                        </div>
+                    </div>
+                    <h3>Visão de mercado</h3>
+                    <div class="result-item">
+                        <span>Custo por atendimento: </span>
+                        <span id="output-custo-atendimento" class="result"></span>
+                    </div>
+                    <div class="result-item">
+                        <span>Custo médio mensal no setor:</span>
+                        <span id="output-custo-mensal" class="result"></span>
+                    </div>
+                    <div class="result-item">
+                        <span>Qtde média de atendentes:</span>
+                        <span id="output-atendentes" class="result"></span>
+                    </div>
+                    <div class="result-item">
+                        <span>Nível de automação no setor (estimado):</span>
+                        <span id="output-automacao" class="result"></span>
+                    </div>
+                    <div class="result-item">
+                        <span>Tempo médio de resposta no setor:</span>
+                        <span id="output-tempo-resposta" class="result"></span>
+                    </div>
                 </div>
-                <div class="result-item">
-                    <span>Qtde média de atendentes:</span>
-                    <span id="output-atendentes" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Nível de automação no setor (estimado):</span>
-                    <span id="output-automacao" class="result"></span>
-                </div>
-                <div class="result-item">
-                    <span>Tempo médio de resposta no setor:</span>
-                    <span id="output-tempo-resposta" class="result"></span>
-                </div>
-            </div>
         </div>
     </div>
     </div>

@@ -11,6 +11,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function gerarInsightOperacao(atendimentosMensais, numeroAtendentes) {
+        const benchmarkPorAtendente = 350;
+    
+        if (numeroAtendentes === 0) return ""; // Evitar divisão por zero
+    
+        const capacidadeBenchmark = numeroAtendentes * benchmarkPorAtendente;
+    
+        if (atendimentosMensais === capacidadeBenchmark) {
+            return ""; // Se bateu exatamente o benchmark, não mostra nada
+        } else if (atendimentosMensais > capacidadeBenchmark) {
+            const excedente = atendimentosMensais - capacidadeBenchmark;
+            return `⚠️ Aproximadamente <strong>${excedente}</strong> atendimentos podem estar ficando sem resposta. Que tal otimizar sua operação com o WOZ?`;
+        } else {
+            return `🎯 O benchmark é de <strong>${benchmarkPorAtendente} atendimentos/mês</strong> por atendente. Você pode otimizar sua operação para atender mais clientes com o WOZ.`;
+        }
+    }
+    
     const form = document.getElementById("roiForm");
 
     const benchmarkPorSetor = {
@@ -257,7 +274,8 @@ document.getElementById("obter-resultados").addEventListener("click", function()
     // Obter dados do setor
     const setorSelecionado = document.getElementById("segmento").value;
     const dadosSetor = benchmarkPorSetor[setorSelecionado];
-    const custoAtendente = dadosSetor.custoMensalPorAtendente || 3500; // Valor padrão caso não exista
+    const salarioBase = dadosSetor.composicaoCusto.salarioBase;
+    const custoAtendente = salarioBase * 1.8;
 
     document.getElementById("custo-utilizado").textContent = 
         `${formatarMoeda(custoAtendente)}`;
@@ -388,13 +406,20 @@ document.getElementById("obter-resultados").addEventListener("click", function()
            return atendimentosMensais === 0 ? 0 : resolucoesWozMaisAnalistas / atendimentosMensais;
         }
 
-        const valorAtendimentoComWOZ = calcularValorAtendimentoComWOZ (resolucoesWozMaisAnalistas, atendimentosMensais);
+        const valorAtendimentoComWOZ = calcularValorAtendimentoComWOZ (
+            resolucoesWozMaisAnalistas, 
+            atendimentosMensais,
+        );
 
-        const calcularEconomiaComAnalistas = (custoGeralAnalistas, analistasComWoz, capacidadeAtual) => {
-            return custoGeralAnalistas - (analistasComWoz*capacidadeAtual)
+        const calcularEconomiaAnalistas = (custoAtual, atendentesReduzidos, custoPorAtendente) => {
+            return custoAtual - (Math.ceil(atendentesReduzidos) * custoPorAtendente);
         }
 
-        const resultEconomiaComAnalistas = calcularEconomiaComAnalistas(custoGeralAnalistas, analistasComWoz, capacidadeAtual);
+        const resultEconomiaComAnalistas = calcularEconomiaAnalistas(
+            custoGeralAnalistas,
+            analistasComWoz,
+            custoAtendente
+        );
 
         const calculoEconomiaGeral = (valorAtendimentoComWOZ, custoPorAtendimento) => {
             if (custoPorAtendimento === 0) return "";
@@ -425,6 +450,16 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         document.getElementById("economia-com-analistas").textContent = `${formatarMoeda(resultEconomiaComAnalistas)}`;
         document.getElementById("economia-total").textContent = economiaGeral;
     
+        const insightOperacao = gerarInsightOperacao(atendimentosMensais, numeroAtendentes);
+        const insightElemento = document.getElementById("dica-eficiencia");
+        
+        if (insightOperacao) {
+            insightElemento.innerHTML = insightOperacao;
+            insightElemento.style.display = "block";
+        } else {
+            insightElemento.style.display = "none";
+        }
+
        // Mostrar a seção de resultados com transição
         const resultsSection = document.getElementById("results-section");
 
@@ -434,6 +469,17 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         setTimeout(() => {
             resultsSection.classList.add("visivel");
           }, 50);
+
+          const dicaEficiencia = document.getElementById("dica-eficiencia");
+          dicaEficiencia.innerHTML = gerarInsightOperacao(
+              document.getElementById("atendimentos").value,
+              document.getElementById("atendentes").value
+          );
+
+          setTimeout(() => {
+            dicaEficiencia.classList.add("visivel");
+        }, 50); 
+
 
          // Preparar dados para comparação
          const dadosUsuario = {
@@ -568,4 +614,19 @@ document.getElementById("obter-resultados").addEventListener("click", function()
       
       formatPercentageInput(campoCrescimento);
       formatPercentageInput(campoDuvidas);
+
+    const analiseMercado = gerarInsightOperacao(
+        parseFloat(document.getElementById("atendimentos").value),
+        parseFloat(document.getElementById("atendentes").value)
+    );
+
+    document.getElementById("dica-eficiencia").innerHTML = analiseMercado;
+
+    console.log("Debug - Valores recebidos:", {
+        atendimentosInput: document.getElementById("atendimentos").value,
+        numAtendentes: document.getElementById("atendentes").value,
+        tipoAtendimentos: typeof document.getElementById("atendimentos").value,
+        tipoAtendentes: typeof document.getElementById("atendentes").value
+    });
+
 });
