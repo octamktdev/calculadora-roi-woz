@@ -20,91 +20,25 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
 .hide{
   display: none;
 }
+.text{
+  font-family: var(--poppins);
+}
+.bold{
+  font-weight: 800;
+}
 .main-wrapper{
     display: flex;
     align-self: center;
     align-items: center;
     flex-direction: column;
+    background: linear-gradient(180deg, #ECF4FD 0%, #FFF 52.4%);
+}
+select, input{
+  border-color: #7C8498;
 }
 
 #form-section{
-  display: flex;
-  flex-direction: row;
-  align-self: center;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem 0;
-
-  .column-left{
-    width: 40%;
-
-  .column-right{
-    width: 60%;
-  }
-    .text{
-      font-family: var(--poppins);
-
-    }
-
-    h1{
-      font-weight: 800;
-      font-size: 3em;
-    }
-  }
-}
-
-#roiForm .form-fields{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
-
-    .content-wrapper{
-      display: flex;
-      flex-direction: column;
-      gap: .25rem;
-      width: 100%;
-
-      select{
-        height: 2.70rem;
-      }
-
-      select, input{
-          height: 2rem;
-          border: 1px solid var(--blue-grey-info);
-          border-radius: .5rem;
-          color: var(--dark-blue);
-          width: 100%;
-          font-size: 1rem;
-          padding: .25rem;
-      }
-
-      label{
-          font-size: var(--font-xsmall);
-          font-weight: 600;
-      }
-  }
-
-    button{
-        display: flex;
-        width: 11.375rem;
-        height: 3rem;
-        padding: 0.625rem 1.5rem;
-        justify-content: center;
-        align-items: center;
-        gap: 0.625rem;
-        flex-shrink: 0;
-        border-radius: 0.625rem;
-        background: var(--button-woz);
-        font-family: var(--noto-sans);
-        font-size: 1rem;
-        font-weight: 700;
-        color: white;
-        border: none;
-        font-family: var(--poppins);
-
-        cursor: pointer;
-    }
+  padding: 1rem 0;
 }
 
 #results-section{
