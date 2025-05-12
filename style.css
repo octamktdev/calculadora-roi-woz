@@ -28,48 +28,62 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
 }
 
 #form-section{
-  max-width: 1080px;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0;
+
+  .column-left{
+    width: 40%;
+
+  .column-right{
+    width: 60%;
+  }
+    .text{
+      font-family: var(--poppins);
+
+    }
+
+    h1{
+      font-weight: 800;
+      font-size: 3em;
+    }
+  }
 }
 
 #roiForm .form-fields{
     display: flex;
     flex-direction: column;
-    min-width: 1080px;
+    width: 100%;
+    gap: 1rem;
 
-    .form-line{
-        display: flex;
-        flex-direction: row;
-        padding: .5rem 0;
-        gap: 2rem;
-        width: 100%;
+    .content-wrapper{
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      width: 100%;
 
+      select{
+        height: 2.70rem;
+      }
 
-        .content-wrapper{
-            display: flex;
-            flex-direction: column;
-            gap: .25rem;
-            width: 100%;
+      select, input{
+          height: 2rem;
+          border: 1px solid var(--blue-grey-info);
+          border-radius: .5rem;
+          color: var(--dark-blue);
+          width: 100%;
+          font-size: 1rem;
+          padding: .25rem;
+      }
 
-            select{
-              height: 2.70rem;
-            }
-
-            select, input{
-                height: 2rem;
-                border: 1px solid var(--blue-grey-info);
-                border-radius: .5rem;
-                color: var(--dark-blue);
-                width: 100%;
-                font-size: 1rem;
-                padding: .25rem;
-            }
-
-            label{
-                font-size: var(--font-xsmall);
-                font-weight: 600;
-            }
-        }
-    }
+      label{
+          font-size: var(--font-xsmall);
+          font-weight: 600;
+      }
+  }
 
     button{
         display: flex;
@@ -160,6 +174,12 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
           font-weight: 600;
           color: #50346D;
           font-size: small;
+        }
+
+        .result-complement{
+          .result{
+            font-weight: 400;
+          }
         }
       }
 
@@ -268,6 +288,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
   opacity: 1;
   max-height: 200px; /* Ajuste conforme necessário */
   padding: 1rem;
+  font-size: 1.25em;
 }
 
 .line-divider{

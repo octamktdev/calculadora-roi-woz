@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return ""; // Se bateu exatamente o benchmark, não mostra nada
         } else if (atendimentosMensais > capacidadeBenchmark) {
             const excedente = atendimentosMensais - capacidadeBenchmark;
-            return `⚠️ Aproximadamente <strong>${excedente}</strong> atendimentos podem estar ficando sem resposta. Que tal otimizar sua operação com o WOZ?`;
+            return `⚠️ Aproximadamente <strong>${excedente}</strong> atendimentos podem estar ficando sem resposta.`;
         } else {
-            return `🎯 O benchmark é de <strong>${benchmarkPorAtendente} atendimentos/mês</strong> por atendente. Você pode otimizar sua operação para atender mais clientes com o WOZ.`;
+            return `🎯 O benchmark é de <strong>${benchmarkPorAtendente} atendimentos/mês</strong> por atendente.`;
         }
     }
     
@@ -411,6 +411,32 @@ document.getElementById("obter-resultados").addEventListener("click", function()
             atendimentosMensais,
         );
 
+        function calcularPorcentagemEconomia(custoAtual, valorAtendimentoComWOZ) {
+          if (custoAtual <= 0 || valorAtendimentoComWOZ <= 0) return "0%";
+          
+          const economiaPercentualAtendimentos = ((custoAtual - valorAtendimentoComWOZ) / custoAtual) * 100;
+          return economiaPercentualAtendimentos.toFixed(2) + "%";
+        }
+
+        const porcentagemEconomia = calcularPorcentagemEconomia(
+          custoPorAtendimento, 
+          valorAtendimentoComWOZ
+        );
+
+        const porcentagemEconomiaMensal = calcularPorcentagemEconomia(
+          custoGeralAnalistas,
+          resolucoesWozMaisAnalistas
+        );
+
+        console.log("Custo por atendimento:", custoPorAtendimento);
+        console.log("Com WOZ:", valorAtendimentoComWOZ);
+        console.log("Economia % por atendimento:", porcentagemEconomia);
+
+        console.log("Custo mensal atual:", custoGeralAnalistas);
+        console.log("Com WOZ:", resolucoesWozMaisAnalistas);
+        console.log("Economia % mensal geral:", porcentagemEconomiaMensal);
+
+
         const calcularEconomiaAnalistas = (custoAtual, atendentesReduzidos, custoPorAtendente) => {
             return custoAtual - (Math.ceil(atendentesReduzidos) * custoPorAtendente);
         }
@@ -446,9 +472,20 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`
         document.getElementById("analistas-necessarios-com-woz").textContent = `${Math.trunc(analistasComWoz)}`;
         document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`
+        
+        document.getElementById("porcentagem-economia-atendimentos").textContent = porcentagemEconomia;
+        //document.getElementById("porcentagem-economia-atendimentos").textContent = `${porcentagemEconomia}`;
+
+        document.getElementById("porcentagem-economia-mensal-geral").textContent = porcentagemEconomiaMensal;
+        //document.getElementById("porcentagem-economia-mensal-geral").textContent = `${porcentagemEconomiaMensal}`
+        
+        
         document.getElementById("valor-atendimento-com-woz").textContent = `${formatarMoeda(valorAtendimentoComWOZ)}`;
         document.getElementById("economia-com-analistas").textContent = `${formatarMoeda(resultEconomiaComAnalistas)}`;
-        document.getElementById("economia-total").textContent = economiaGeral;
+        
+        const economiaTotalMonetaria = custoGeralAnalistas - resolucoesWozMaisAnalistas;
+        document.getElementById("economia-total").textContent = `${formatarMoeda(economiaTotalMonetaria)}`;
+        //document.getElementById("economia-total").textContent = economiaGeral;
     
         const insightOperacao = gerarInsightOperacao(atendimentosMensais, numeroAtendentes);
         const insightElemento = document.getElementById("dica-eficiencia");

@@ -13,9 +13,15 @@
 <body>
     <div class="main-wrapper">
         <div id="form-section">
+            <div class="column-left">
+                <h1 class="text">Calculadora de ROI</h1>
+                <p class="text">Calcule o impacto real de não automatizar seu atendimento e veja quanto você pode economizar mês a mês.
+                </p>
+            </div>
+
+            <div class="column-right">
             <form id="roiForm">
                 <div class="form-fields">
-                    <div class="form-line">
                         <div class="content-wrapper">
                             <label for="segmento">Setor da empresa</label>
                             <select id="segmento" name="segmento" required>
@@ -45,9 +51,6 @@
                             <input placeholder="Ex: 3000 " type="number" id="atendimentos" required><br>
                         </div>
 
-                    </div>
-
-                    <div class="form-line">
                         <div class="content-wrapper">
                             <label for="crescimento-mensal-empresa">Crescimento mensal da empresa (em porcentagem)</label>
                             <input required placeholder="Ex: 5%" type="text" id="crescimento-mensal-empresa">
@@ -57,13 +60,13 @@
                             <label for="porcentagem-de-duvidas-repetidas">Porcentagem de dúvidas repetidas</label>
                             <input required placeholder="Ex: 12%" type="text" id="porcentagem-de-duvidas-repetidas">
                         </div>
-                    </div>
 
                     <div class="button-group">
                         <button class="button" type="submit">Calcular</button>
                     </div>
                 </div>
             </form>
+            </div>
         </div>
 
         <div id="dica-eficiencia">
@@ -98,6 +101,14 @@
                     <div class="result-item">
                         <span>Custo de cada atendimento com IA: </span>
                         <span id="valor-atendimento-com-woz" class="result"></span>
+                        <div class="result-complement">
+                            <span class="result">💡 Economia de 
+                                <strong>
+                                    <span id="porcentagem-economia-atendimentos"></span>
+                                </strong>
+                            nos seus atendimentos
+                        </span>
+                        </div>
                     </div>
                     <div class="result-item">
                         <span>Custo mensal geral da operação com IA:</span>
@@ -113,6 +124,7 @@
                                 <span>Economia mensal com atendentes: </span>
                                 <span id="economia-com-analistas" class="result"></span>
                             </div>
+
                             <div class="result-item">
                                 <span>Custos mensais dos atendimentos do WOZ: </span>
                                 <span id="result-investimentos-resolucoes-woz" class="result"></span>
@@ -126,6 +138,14 @@
                     <div class="result-item">
                         <span><b>ECONOMIA MENSAL TOTAL:</b></span>
                         <span id="economia-total" class="result"></span>
+                        <div class="result-complement">
+                            <span class="result">💰 Economia de 
+                                <strong>
+                                    <span id="porcentagem-economia-mensal-geral"></span>
+                                </strong>
+                            no seu custo mensal geral
+                        </span>
+                        </div>
                     </div>
     
                     <div class="button-group">
