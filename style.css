@@ -38,13 +38,10 @@ select, input{
 }
 
 #form-section{
-  padding: 1rem 0;
+  padding: 2rem 0;
 }
 
 #results-section{
-    flex: row;
-    gap: 2rem;
-    align-self: center;
     padding: 3% 1rem;
 
     opacity: 0;
@@ -52,8 +49,6 @@ select, input{
     transition: opacity 0.3s ease-in-out;
     
     .column{
-        width: 20rem;
-        max-width: 20rem;
         height: auto;
         border-radius: .65rem;
         background-color: #ECF4FD;
@@ -220,7 +215,7 @@ select, input{
 
 #dica-eficiencia.visivel {
   opacity: 1;
-  max-height: 200px; /* Ajuste conforme necessário */
+  max-height: 200px; 
   padding: 1rem;
   font-size: 1.25em;
 }
@@ -491,3 +486,10 @@ select, input{
         align-self: center;
     }
 }*/
+
+
+@media (max-width: 576px) { 
+  .column{
+    margin: 1rem 0;
+  }
+ }
