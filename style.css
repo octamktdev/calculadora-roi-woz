@@ -31,7 +31,7 @@ body { font-family: 'Noto Sans', sans-serif; margin: 20px; }
     align-self: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(180deg, #ECF4FD 0%, #FFF 52.4%);
+    background: transparent;
 }
 select, input{
   border-color: #7C8498;
