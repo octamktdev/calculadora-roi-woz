@@ -332,28 +332,30 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const setorSelecionado = document.getElementById("segmento").value;
         const crescimentoMensal = document.getElementById("crescimento-mensal-empresa").value;
         const duvidasRepetidas = document.getElementById("porcentagem-de-duvidas-repetidas").value;
-
-        const payload = {
+        
+          const formData = new FormData(form);
+          const data = {
             segmento: document.getElementById("segmento").value,
             atendentes: document.getElementById("atendentes").value,
             atendimentos: document.getElementById("atendimentos").value,
             crescimentoMensal: document.getElementById("crescimento-mensal-empresa").value,
             duvidasRepetidas: document.getElementById("porcentagem-de-duvidas-repetidas").value
           };
+          
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
         
-          fetch("https://hook.us2.make.com/pyrznbqqpp6361qqsc1pij0pcseb23xl", {
+          fetch("https://hooks.zapier.com/hooks/catch/1943265/2744oj9/", {
             method: "POST",
-            body: JSON.stringify(payload),
             headers: {
               "Content-Type": "application/json"
-            }
-          })
-          .then(() => {
-            console.log("Dados enviados com sucesso!");
-          })
-          .catch(error => {
-            console.error("Erro ao enviar dados:", error);
+            },
+            body: JSON.stringify(data)
           });
+        
+          // ações pós-envio
+          alert("Formulário enviado com sucesso!");
 
         // Obtendo o custo do setor selecionado
         const dadosSetor = benchmarkPorSetor[setorSelecionado];
