@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function exibirValorOuAviso(id, valor, formatador = v => v) {
       const el = document.getElementById(id);
       if (valor <= 0 || isNaN(valor)) {
-          el.textContent = "❗ Sua operação pode estar com problemas.";
+          el.textContent = "❗Sua operação aparenta estar com problemas. <br> Fale com nossos especialistas.";
       } else {
           el.textContent = formatador(valor);
       }
@@ -38,6 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     
+    function aplicarMascaraMilhar(input) {
+      input.addEventListener("input", () => {
+        //remove digitos que não são números
+        let valor = input.value.replace(/\D/g, "");
+    
+        valor = Number(valor).toLocaleString("pt-BR");
+    
+        input.value = valor;
+      });
+    }
+
     const form = document.getElementById("roiForm");
 
     const benchmarkPorSetor = {
@@ -333,29 +344,27 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         const crescimentoMensal = document.getElementById("crescimento-mensal-empresa").value;
         const duvidasRepetidas = document.getElementById("porcentagem-de-duvidas-repetidas").value;
         
-          const formData = new FormData(form);
-          const data = {
-            segmento: document.getElementById("segmento").value,
-            atendentes: document.getElementById("atendentes").value,
-            atendimentos: document.getElementById("atendimentos").value,
-            crescimentoMensal: document.getElementById("crescimento-mensal-empresa").value,
-            duvidasRepetidas: document.getElementById("porcentagem-de-duvidas-repetidas").value
-          };
-          
-          formData.forEach((value, key) => {
-            data[key] = value;
-          });
-        
-          fetch("https://hooks.zapier.com/hooks/catch/1943265/2744oj9/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-          });
-        
-          // ações pós-envio
-          alert("Formulário enviado com sucesso!");
+        const payload = {
+          segmento: document.getElementById("segmento").value,
+          atendentes: document.getElementById("atendentes").value,
+          atendimentos: document.getElementById("atendimentos").value,
+          crescimentoMensal: document.getElementById("crescimento-mensal-empresa").value,
+          duvidasRepetidas: document.getElementById("porcentagem-de-duvidas-repetidas").value
+        };
+      
+        fetch("https://hook.us2.make.com/51c9p2ddonfyio5y6tlshmemou3lfiox", {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(() => {
+          console.log("Dados enviados com sucesso!");
+        })
+        .catch(error => {
+          console.error("Erro ao enviar dados:", error);
+        });
 
         // Obtendo o custo do setor selecionado
         const dadosSetor = benchmarkPorSetor[setorSelecionado];
@@ -482,7 +491,12 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
         document.getElementById("result-custo-atendimento").textContent = `${formatarMoeda(custoPorAtendimento)}`;
         document.getElementById("result-atendimento-analista").textContent = ` ${Math.trunc(capacidadeAtual)}`;
-        document.getElementById("result-estimativa-atendimento-com-ia").textContent = `${estimativaAtendimentosComIA}`;
+        
+        document.getElementById("result-estimativa-atendimento-com-ia").textContent = estimativaAtendimentosComIA.toLocaleString("pt-BR", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        });        
+        
         document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`
         
         //document.getElementById("analistas-necessarios-com-woz").textContent = `${Math.trunc(analistasComWoz)}`;
@@ -528,6 +542,10 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         //document.getElementById("economia-total").textContent = `${formatarMoeda(economiaTotalMonetaria)}`;
         //document.getElementById("economia-total").textContent = economiaGeral;
     
+        const inputAtendimentos = document.getElementById("atendimentos");
+        aplicarMascaraMilhar(inputAtendimentos);
+
+
         const insightOperacao = gerarInsightOperacao(atendimentosMensais, numeroAtendentes);
         const insightElemento = document.getElementById("dica-eficiencia");
         
@@ -550,7 +568,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
           const dicaEficiencia = document.getElementById("dica-eficiencia");
           dicaEficiencia.innerHTML = gerarInsightOperacao(
-              document.getElementById("atendimentos").value,
+              document.getElementById("atendimentos").value.replace(/\./g, ""),
               document.getElementById("atendentes").value
           );
 
@@ -694,16 +712,16 @@ document.getElementById("obter-resultados").addEventListener("click", function()
       formatPercentageInput(campoDuvidas);
 
     const analiseMercado = gerarInsightOperacao(
-        parseFloat(document.getElementById("atendimentos").value),
+        parseFloat(document.getElementById("atendimentos").value.replace(/\./g, "")),
         parseFloat(document.getElementById("atendentes").value)
     );
 
     document.getElementById("dica-eficiencia").innerHTML = analiseMercado;
 
     console.log("Debug - Valores recebidos:", {
-        atendimentosInput: document.getElementById("atendimentos").value,
+        atendimentosInput: document.getElementById("atendimentos").value.replace(/\./g, ""),
         numAtendentes: document.getElementById("atendentes").value,
-        tipoAtendimentos: typeof document.getElementById("atendimentos").value,
+        tipoAtendimentos: typeof document.getElementById("atendimentos").value.replace(/\./g, ""),
         tipoAtendentes: typeof document.getElementById("atendentes").value
     });
 
