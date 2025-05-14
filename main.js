@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     function formatarMoeda(valor) {
         if (!Number.isFinite(valor)) {
             console.warn("Valor inválido para formatação:", valor);
@@ -9,6 +10,15 @@ document.addEventListener("DOMContentLoaded", function () {
             currency: "BRL",
             minimumFractionDigits: 2
         });
+    }
+
+    function exibirValorOuAviso(id, valor, formatador = v => v) {
+      const el = document.getElementById(id);
+      if (valor <= 0 || isNaN(valor)) {
+          el.textContent = "❗ Sua operação pode estar com problemas.";
+      } else {
+          el.textContent = formatador(valor);
+      }
     }
 
     function gerarInsightOperacao(atendimentosMensais, numeroAtendentes) {
@@ -464,27 +474,56 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
         const economiaGeral = calculoEconomiaGeral(valorAtendimentoComWOZ, custoPorAtendimento);
 
+
         // Atualizar os blocos de resultado
         document.getElementById("result-custo-geral-analistas").textContent = `${formatarMoeda(custoGeralAnalistas)}`;
+
         document.getElementById("result-custo-atendimento").textContent = `${formatarMoeda(custoPorAtendimento)}`;
         document.getElementById("result-atendimento-analista").textContent = ` ${Math.trunc(capacidadeAtual)}`;
         document.getElementById("result-estimativa-atendimento-com-ia").textContent = `${estimativaAtendimentosComIA}`;
         document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`
-        document.getElementById("analistas-necessarios-com-woz").textContent = `${Math.trunc(analistasComWoz)}`;
+        
+        //document.getElementById("analistas-necessarios-com-woz").textContent = `${Math.trunc(analistasComWoz)}`;
+        exibirValorOuAviso("analistas-necessarios-com-woz", analistasComWoz, v => Math.trunc(v));
+
+        
         document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`
         
-        document.getElementById("porcentagem-economia-atendimentos").textContent = porcentagemEconomia;
+        //document.getElementById("porcentagem-economia-atendimentos").textContent = porcentagemEconomia;
         //document.getElementById("porcentagem-economia-atendimentos").textContent = `${porcentagemEconomia}`;
 
-        document.getElementById("porcentagem-economia-mensal-geral").textContent = porcentagemEconomiaMensal;
+        //document.getElementById("porcentagem-economia-mensal-geral").textContent = porcentagemEconomiaMensal;
         //document.getElementById("porcentagem-economia-mensal-geral").textContent = `${porcentagemEconomiaMensal}`
         
+
+        const economiaAtendimentosEl = document.getElementById("economia-atendimentos-item");
+            if (parseFloat(porcentagemEconomia.replace('%', '')) > 0) {
+              document.getElementById("porcentagem-economia-atendimentos").textContent = porcentagemEconomia;
+              economiaAtendimentosEl.style.display = "block";
+            } else {
+              economiaAtendimentosEl.style.display = "none";
+            }
+
+            // Economia mensal geral
+            const economiaTotalEl = document.getElementById("economia-total-item");
+            if (parseFloat(porcentagemEconomiaMensal.replace('%', '')) > 0) {
+              document.getElementById("porcentagem-economia-mensal-geral").textContent = porcentagemEconomiaMensal;
+              economiaTotalEl.style.display = "block";
+            } else {
+              economiaTotalEl.style.display = "none";
+        }
+
         
         document.getElementById("valor-atendimento-com-woz").textContent = `${formatarMoeda(valorAtendimentoComWOZ)}`;
-        document.getElementById("economia-com-analistas").textContent = `${formatarMoeda(resultEconomiaComAnalistas)}`;
         
+        //document.getElementById("economia-com-analistas").textContent = `${formatarMoeda(resultEconomiaComAnalistas)}`;
+        exibirValorOuAviso("economia-com-analistas", resultEconomiaComAnalistas, formatarMoeda);
+
         const economiaTotalMonetaria = custoGeralAnalistas - resolucoesWozMaisAnalistas;
-        document.getElementById("economia-total").textContent = `${formatarMoeda(economiaTotalMonetaria)}`;
+        
+        exibirValorOuAviso("economia-total", economiaTotalMonetaria, formatarMoeda);
+
+        //document.getElementById("economia-total").textContent = `${formatarMoeda(economiaTotalMonetaria)}`;
         //document.getElementById("economia-total").textContent = economiaGeral;
     
         const insightOperacao = gerarInsightOperacao(atendimentosMensais, numeroAtendentes);
