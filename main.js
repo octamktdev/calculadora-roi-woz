@@ -490,7 +490,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         document.getElementById("result-custo-geral-analistas").textContent = `${formatarMoeda(custoGeralAnalistas)}`;
 
         document.getElementById("result-custo-atendimento").textContent = `${formatarMoeda(custoPorAtendimento)}`;
-        document.getElementById("result-atendimento-analista").textContent = ` ${Math.trunc(capacidadeAtual)}`;
+        document.getElementById("result-atendimento-analista").textContent = Math.trunc(capacidadeAtual).toLocaleString("pt-BR");
         
         document.getElementById("result-estimativa-atendimento-com-ia").textContent = estimativaAtendimentosComIA.toLocaleString("pt-BR", {
           minimumFractionDigits: 0,
