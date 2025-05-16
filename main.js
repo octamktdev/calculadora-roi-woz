@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function exibirValorOuAviso(id, valor, formatador = v => v) {
       const el = document.getElementById(id);
       if (valor <= 0 || isNaN(valor)) {
-          el.textContent = "❗Sua operação aparenta estar com problemas. <br> Fale com nossos especialistas.";
+          el.textContent = "❗Sua operação aparenta estar com problemas. Fale com nossos especialistas.";
       } else {
           el.textContent = formatador(valor);
       }
