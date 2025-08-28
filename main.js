@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // --- TRACKING: controle de estado do cálculo ---
-    let calcDone = false;
-
     function formatarMoeda(valor) {
         if (!Number.isFinite(valor)) {
             console.warn("Valor inválido para formatação:", valor);
@@ -500,19 +497,19 @@ document.getElementById("obter-resultados").addEventListener("click", function()
           maximumFractionDigits: 0
         });        
         
-        document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`;
+        document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`
         
         //document.getElementById("analistas-necessarios-com-woz").textContent = `${Math.trunc(analistasComWoz)}`;
         exibirValorOuAviso("analistas-necessarios-com-woz", analistasComWoz, v => Math.trunc(v));
 
         
-        document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`;
+        document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`
         
         //document.getElementById("porcentagem-economia-atendimentos").textContent = porcentagemEconomia;
         //document.getElementById("porcentagem-economia-atendimentos").textContent = `${porcentagemEconomia}`;
 
         //document.getElementById("porcentagem-economia-mensal-geral").textContent = porcentagemEconomiaMensal;
-        //document.getElementById("porcentagem-economia-mensal-geral").textContent = `${porcentagemEconomiaMensal}`;
+        //document.getElementById("porcentagem-economia-mensal-geral").textContent = `${porcentagemEconomiaMensal}`
         
 
         const economiaAtendimentosEl = document.getElementById("economia-atendimentos-item");
@@ -596,17 +593,6 @@ document.getElementById("obter-resultados").addEventListener("click", function()
             document.getElementById("output-automacao").textContent = `${dados.automacao}`;
             document.getElementById("output-tempo-resposta").textContent = `${dados.tempoResposta}`;
         }
-
-        // --- TRACKING: marcar cálculo concluído e enviar evento com resumo ---
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'roi_results_ready',
-          segmento: document.getElementById('segmento')?.value || null,
-          atendentes: document.getElementById('atendentes')?.value || null,
-          atendimentos: document.getElementById('atendimentos')?.value || null,
-          economia_total: document.getElementById('economia-total')?.textContent || null
-        });
-        calcDone = true;
     });
 
     function getDadosUsuario() {
@@ -738,23 +724,5 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         tipoAtendimentos: typeof document.getElementById("atendimentos").value.replace(/\./g, ""),
         tipoAtendentes: typeof document.getElementById("atendentes").value
     });
-
-    // --- TRACKING: listener do CTA "Falar com um especialista" ---
-    const btnEspecialista = document.getElementById('cta-calculadora-woz-especialista');
-    if (btnEspecialista) {
-      btnEspecialista.addEventListener('click', function () {
-        if (!calcDone) return; // só depois do cálculo
-
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'cta_specialist_click',
-          after_calc: 'yes',
-          segmento: document.getElementById('segmento')?.value || null,
-          atendentes: document.getElementById('atendentes')?.value || null,
-          atendimentos: document.getElementById('atendimentos')?.value || null,
-          economia_total: document.getElementById('economia-total')?.textContent || null
-        });
-      });
-    }
 
 });
