@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    // --- GTM: garante dataLayer disponível ---
+    window.dataLayer = window.dataLayer || [];
+
     function formatarMoeda(valor) {
         if (!Number.isFinite(valor)) {
             console.warn("Valor inválido para formatação:", valor);
@@ -217,8 +220,8 @@ document.addEventListener("DOMContentLoaded", function () {
     atendentesMedios: 6,
     automacao: "Média",
     tempoResposta: "20 min",
-    custoMensalPorAtendente: 3500.00, // Adicionado valor padrão
-    composicaoCusto: { // Adicionada estrutura de composição
+    custoMensalPorAtendente: 3500.00,
+    composicaoCusto: {
       salarioBase: 2500.00,
       encargos: 700.00,
       beneficios: 300.00
@@ -232,107 +235,98 @@ document.addEventListener("DOMContentLoaded", function () {
     const conteudoExclusivo = document.getElementById("conteudo-exclusivo");
     
     // Abrir modal quando clicar na seção de benchmark
-document.getElementById("obter-resultados").addEventListener("click", function() {
-    modal.style.display = "block";
-  });
-  
-  // Fechar modal
-  closeBtn.addEventListener("click", function() {
-    modal.style.display = "none";
-  });
-  
-  // Fechar ao clicar fora do modal
-  window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-  
-  contatoForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    // Captura os valores dos campos
-    const nome = document.getElementById("nome").value.trim();
-    const telefone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const empresa = document.getElementById("empresa").value.trim();
-
-     // Monta o payload para o Make
-  const data = {
-    nome: nome,
-    telefone: telefone,
-    email: email,
-    empresa: empresa
-  };
-
-  // Substitua pela URL do seu webhook do Make
-  const webhookUrl = "https://hook.us2.make.com/mu93lt625h5bfmq3us3cn29tfx3lxc3o";
-
-  fetch(webhookUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-    .then(response => {
-      if (!response.ok) throw new Error("Erro no envio");
-      console.log("Dados enviados com sucesso!");
-      // Aqui você pode redirecionar, abrir uma seção, liberar acesso, etc.
-    })
-    .catch(error => {
-      console.error("Erro ao enviar dados:", error);
+    document.getElementById("obter-resultados").addEventListener("click", function() {
+      modal.style.display = "block";
     });
+  
+    // Fechar modal
+    closeBtn.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+  
+    // Fechar ao clicar fora do modal
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  
+    contatoForm.addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    const conteudo = document.getElementById("conteudo-exclusivo");
-    conteudo.classList.remove("conteudo-oculto");
-    conteudo.classList.add("conteudo-visivel");
+      // Captura os valores dos campos
+      const nome = document.getElementById("nome").value.trim();
+      const telefone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const empresa = document.getElementById("empresa").value.trim();
 
-    // Esconder formulário e mostrar resultados
-    contatoForm.style.display = "none";
-    conteudoExclusivo.style.display = "block";
+      // Monta o payload para o Make
+      const data = { nome, telefone, email, empresa };
 
-    // Obter dados do setor
-    const setorSelecionado = document.getElementById("segmento").value;
-    const dadosSetor = benchmarkPorSetor[setorSelecionado];
-    const salarioBase = dadosSetor.composicaoCusto.salarioBase;
-    const custoAtendente = salarioBase * 1.8;
+      // Substitua pela URL do seu webhook do Make
+      const webhookUrl = "https://hook.us2.make.com/mu93lt625h5bfmq3us3cn29tfx3lxc3o";
 
-    document.getElementById("custo-utilizado").textContent = 
-        `${formatarMoeda(custoAtendente)}`;
+      fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Erro no envio");
+        console.log("Dados enviados com sucesso!");
+      })
+      .catch(error => {
+        console.error("Erro ao enviar dados:", error);
+      });
 
-    // Obter dados do usuário
-    const dadosUsuario = {
+      const conteudo = document.getElementById("conteudo-exclusivo");
+      conteudo.classList.remove("conteudo-oculto");
+      conteudo.classList.add("conteudo-visivel");
+
+      // Esconder formulário e mostrar resultados
+      contatoForm.style.display = "none";
+      conteudoExclusivo.style.display = "block";
+
+      // Obter dados do setor
+      const setorSelecionado = document.getElementById("segmento").value;
+      const dadosSetor = benchmarkPorSetor[setorSelecionado];
+      const salarioBase = dadosSetor.composicaoCusto.salarioBase;
+      const custoAtendente = salarioBase * 1.8;
+
+      document.getElementById("custo-utilizado").textContent = `${formatarMoeda(custoAtendente)}`;
+
+      // Obter dados do usuário
+      const dadosUsuario = {
         custoPorAtendimento: parseFloat(
-            document.getElementById("result-custo-atendimento").textContent
-                .replace(/[^\d,]/g, '')
-                .replace(',', '.')
+          document.getElementById("result-custo-atendimento").textContent
+            .replace(/[^\d,]/g, '')
+            .replace(',', '.')
         ),
         custoMensal: parseFloat(
-            document.getElementById("result-custo-geral-analistas").textContent
-                .replace(/[^\d,]/g, '')
-                .replace(',', '.')
+          document.getElementById("result-custo-geral-analistas").textContent
+            .replace(/[^\d,]/g, '')
+            .replace(',', '.')
         ),
         atendentesMedios: parseFloat(document.getElementById("atendentes").value)
-    };
+      };
 
-    // Atualizar textos do benchmark (sem recriar os canvas)
-    const detalhesBenchmark = document.getElementById("detalhes-benchmark");
-    detalhesBenchmark.insertAdjacentHTML("afterbegin", `
+      // Atualizar textos do benchmark (sem recriar os canvas)
+      const detalhesBenchmark = document.getElementById("detalhes-benchmark");
+      detalhesBenchmark.insertAdjacentHTML("afterbegin", `
         <p><strong>Setor:</strong> ${document.getElementById("segmento").options[document.getElementById("segmento").selectedIndex].text}</p>
         <p><strong>Custo por Atendimento:</strong> ${formatarMoeda(dadosSetor.custoPorAtendimento)}</p>
         <p><strong>Custo Mensal Médio:</strong> ${formatarMoeda(dadosSetor.custoMensal)}</p>
         <p><strong>Atendentes Médios:</strong> ${dadosSetor.atendentesMedios}</p>
         <p><strong>Nível de Automação:</strong> ${dadosSetor.automacao}</p>
         <p><strong>Tempo Médio de Resposta:</strong> ${dadosSetor.tempoResposta}</p>
-    `);
+      `);
 
-    // Agora cria os gráficos nos canvases que já existem
-    setTimeout(() => {
+      // Agora cria os gráficos nos canvases que já existem
+      setTimeout(() => {
         criarGraficosModal(dadosSetor, dadosUsuario);
         conteudo.style.opacity = 1;
-    }, 100);
-});
+      }, 100);
+    });
 
     form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -355,24 +349,17 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         fetch("https://hook.us2.make.com/51c9p2ddonfyio5y6tlshmemou3lfiox", {
           method: "POST",
           body: JSON.stringify(payload),
-          headers: {
-            "Content-Type": "application/json"
-          }
+          headers: { "Content-Type": "application/json" }
         })
-        .then(() => {
-          console.log("Dados enviados com sucesso!");
-        })
-        .catch(error => {
-          console.error("Erro ao enviar dados:", error);
-        });
+        .then(() => { console.log("Dados enviados com sucesso!"); })
+        .catch(error => { console.error("Erro ao enviar dados:", error); });
 
         // Obtendo o custo do setor selecionado
         const dadosSetor = benchmarkPorSetor[setorSelecionado];
         const custoAtendente = dadosSetor.custoMensalPorAtendente;
 
-         // Mostra o custo utilizado nos cálculos
-        document.getElementById("custo-utilizado").textContent = 
-        `${formatarMoeda(custoAtendente)}`;
+        // Mostra o custo utilizado nos cálculos
+        document.getElementById("custo-utilizado").textContent = `${formatarMoeda(custoAtendente)}`;
 
         // Validação básica
         if (atendimentosMensais <= 0 || numeroAtendentes <= 0 || custoAtendente <= 0) {
@@ -497,19 +484,19 @@ document.getElementById("obter-resultados").addEventListener("click", function()
           maximumFractionDigits: 0
         });        
         
-        document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`
+        document.getElementById("result-investimentos-resolucoes-woz").textContent = `${formatarMoeda(investimentoEmResolucoesWoz)}`;
         
         //document.getElementById("analistas-necessarios-com-woz").textContent = `${Math.trunc(analistasComWoz)}`;
         exibirValorOuAviso("analistas-necessarios-com-woz", analistasComWoz, v => Math.trunc(v));
 
         
-        document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`
+        document.getElementById("custo-resolucoes-analistas-mais-woz").textContent = `${formatarMoeda(resolucoesWozMaisAnalistas)}`;
         
         //document.getElementById("porcentagem-economia-atendimentos").textContent = porcentagemEconomia;
         //document.getElementById("porcentagem-economia-atendimentos").textContent = `${porcentagemEconomia}`;
 
         //document.getElementById("porcentagem-economia-mensal-geral").textContent = porcentagemEconomiaMensal;
-        //document.getElementById("porcentagem-economia-mensal-geral").textContent = `${porcentagemEconomiaMensal}`
+        //document.getElementById("porcentagem-economia-mensal-geral").textContent = `${porcentagemEconomiaMensal}`;
         
 
         const economiaAtendimentosEl = document.getElementById("economia-atendimentos-item");
@@ -539,12 +526,17 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         
         exibirValorOuAviso("economia-total", economiaTotalMonetaria, formatarMoeda);
 
-        //document.getElementById("economia-total").textContent = `${formatarMoeda(economiaTotalMonetaria)}`;
-        //document.getElementById("economia-total").textContent = economiaGeral;
+        // --- GTM: evento após cálculo concluído (resultados prontos) ---
+        window.dataLayer.push({
+          event: 'roi_results_ready',
+          segmento: document.getElementById('segmento')?.value || null,
+          atendentes: document.getElementById('atendentes')?.value || null,
+          atendimentos: document.getElementById('atendimentos')?.value || null,
+          economia_total: document.getElementById('economia-total')?.textContent || null
+        });
     
         const inputAtendimentos = document.getElementById("atendimentos");
         aplicarMascaraMilhar(inputAtendimentos);
-
 
         const insightOperacao = gerarInsightOperacao(atendimentosMensais, numeroAtendentes);
         const insightElemento = document.getElementById("dica-eficiencia");
@@ -556,7 +548,7 @@ document.getElementById("obter-resultados").addEventListener("click", function()
             insightElemento.style.display = "none";
         }
 
-       // Mostrar a seção de resultados com transição
+        // Mostrar a seção de resultados com transição
         const resultsSection = document.getElementById("results-section");
 
         resultsSection.classList.remove("visivel");
@@ -564,21 +556,20 @@ document.getElementById("obter-resultados").addEventListener("click", function()
 
         setTimeout(() => {
             resultsSection.classList.add("visivel");
-          }, 50);
+        }, 50);
 
-          const dicaEficiencia = document.getElementById("dica-eficiencia");
-          dicaEficiencia.innerHTML = gerarInsightOperacao(
-              document.getElementById("atendimentos").value.replace(/\./g, ""),
-              document.getElementById("atendentes").value
-          );
+        const dicaEficiencia = document.getElementById("dica-eficiencia");
+        dicaEficiencia.innerHTML = gerarInsightOperacao(
+            document.getElementById("atendimentos").value.replace(/\./g, ""),
+            document.getElementById("atendentes").value
+        );
 
-          setTimeout(() => {
+        setTimeout(() => {
             dicaEficiencia.classList.add("visivel");
         }, 50); 
 
-
-         // Preparar dados para comparação
-         const dadosUsuario = {
+        // Preparar dados para comparação
+        const dadosUsuario = {
             custoPorAtendimento: custoPorAtendimento,
             custoMensal: custoGeralAnalistas,
             atendentesMedios: numeroAtendentes
@@ -724,5 +715,18 @@ document.getElementById("obter-resultados").addEventListener("click", function()
         tipoAtendimentos: typeof document.getElementById("atendimentos").value.replace(/\./g, ""),
         tipoAtendentes: typeof document.getElementById("atendentes").value
     });
+
+    // --- GTM: rastrear clique no CTA "Falar com um especialista" (referência WOZ) ---
+    waitForElement('cta-calculadora-woz-especialista', function (btn) {
+      btn.addEventListener('click', function () {
+        window.dataLayer.push({
+          event: 'cta_woz_specialist_click',
+          segmento: document.getElementById('segmento')?.value || null,
+          atendentes: document.getElementById('atendentes')?.value || null,
+          atendimentos: document.getElementById('atendimentos')?.value || null,
+          economia_total: document.getElementById('economia-total')?.textContent || null
+        });
+      });
+    }, 20, 200);
 
 });
